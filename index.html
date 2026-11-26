@@ -146,6 +146,9 @@ h2.sh{font-size:15px;color:var(--mu);margin:18px 0 0;font-weight:600}
 #blaknot-editor-overlay .sabab-fs-scroll{flex:1 1 auto;min-height:0;overflow-x:hidden!important;overflow-y:auto!important;overscroll-behavior:contain}
 #blaknot-editor-overlay .sabab-fs-foot{flex:0 0 auto;padding-bottom:calc(10px + env(safe-area-inset-bottom,0px))!important}
 #blaknot-editor-overlay #blaknot-pages-stack{width:100%!important;max-height:min(55dvh,520px)!important;overflow-y:auto!important;overflow-x:hidden!important}
+/* Klaviatura ochilganda (T rejimi): yozish oynasi tepaga ko'tarilib, bo'sh joyni to'ldiradi */
+#blaknot-editor-overlay.blaknot-kb #blaknot-pages-stack{max-height:var(--nb-h)!important;height:var(--nb-h)!important}
+#blaknot-editor-overlay.blaknot-kb .blaknot-page-canvas-wrap{height:var(--nb-wh)!important}
 #blaknot-editor-overlay .modal-btns{display:flex!important;width:100%!important;gap:8px}
 #blaknot-editor-overlay .btn-cancel,#blaknot-editor-overlay .btn-save{flex:1 1 0;min-width:0;min-height:48px;font-size:15px!important}
 #nv button{min-width:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;padding:3px 0}
@@ -791,7 +794,8 @@ function blaknotRenderPagesStack() {
     rt.wrap = wrap; rt.canvas = canvas; rt.textarea = textarea;
     rt.pendingDrawingSrc = page.drawing || null;
 
-    textarea.addEventListener('focus', () => blaknotSetActivePage(idx));
+    textarea.addEventListener('focus', () => { blaknotSetActivePage(idx); setTimeout(blaknotKbLayout, 350); });
+    textarea.addEventListener('blur', () => setTimeout(blaknotKbLayout, 250));
     textarea.addEventListener('input', () => { page.text = textarea.value; });
     canvas.addEventListener('pointerdown', (e) => { blaknotSetActivePage(idx); blaknotPointerDown(e, idx); });
     canvas.addEventListener('pointermove', (e) => blaknotPointerMove(e, idx));
@@ -821,6 +825,47 @@ function blaknotRenderPagesStack() {
   }, { root: stack, threshold: [0.3, 0.5, 0.7] });
   document.querySelectorAll('.blaknot-page-block').forEach(el => _blaknotStackObserver.observe(el));
 }
+
+// Klaviatura ochilganda: sarlavha/asboblar tepaga siljib chiqib ketadi, yozish oynasi
+// ko'rinadigan joyni to'ldiradi. Oynani pastga surib asboblarni qayta ko'rish mumkin;
+// klaviatura yopilganda (yoki yozish oynasidan chiqilganda) avvalgi joyiga qaytadi.
+let _nbKbSavedScroll = null, _nbKbLastH = 0;
+function blaknotKbLayout() {
+  const ov = document.getElementById('blaknot-editor-overlay');
+  if (!ov || !ov.classList.contains('open')) return;
+  const sc = ov.querySelector('.sabab-fs-scroll');
+  const stack = document.getElementById('blaknot-pages-stack');
+  if (!sc || !stack) return;
+  const ae = document.activeElement;
+  const focused = ae && ae.classList && ae.classList.contains('blaknot-page-text');
+  if (!focused) {
+    if (ov.classList.contains('blaknot-kb')) {
+      ov.classList.remove('blaknot-kb');
+      ov.style.removeProperty('--nb-h');
+      ov.style.removeProperty('--nb-wh');
+      if (_nbKbSavedScroll != null) sc.scrollTo({ top: _nbKbSavedScroll, behavior: 'smooth' });
+    }
+    _nbKbSavedScroll = null; _nbKbLastH = 0;
+    return;
+  }
+  if (_nbKbSavedScroll == null) _nbKbSavedScroll = sc.scrollTop;
+  const h = Math.max(180, sc.clientHeight - 16);
+  if (ov.classList.contains('blaknot-kb') && Math.abs(h - _nbKbLastH) < 4) return;
+  _nbKbLastH = h;
+  ov.style.setProperty('--nb-h', h + 'px');
+  ov.style.setProperty('--nb-wh', Math.max(150, h - 26) + 'px');
+  ov.classList.add('blaknot-kb');
+  requestAnimationFrame(() => {
+    const top = stack.getBoundingClientRect().top - sc.getBoundingClientRect().top + sc.scrollTop;
+    sc.scrollTo({ top: Math.max(0, top - 6), behavior: 'smooth' });
+  });
+}
+(function () {
+  let t = null;
+  const run = () => { clearTimeout(t); t = setTimeout(blaknotKbLayout, 120); };
+  window.addEventListener('resize', run);
+  if (window.visualViewport) window.visualViewport.addEventListener('resize', run);
+})();
 
 function openBlaknotEditor(id) {
   // Eslatma: _blaknotNotes ilova ishga tushganda va har bir saqlash/o'chirishdan
@@ -879,6 +924,8 @@ function closeBlaknotEditor() {
   _blaknotViewOnly = false;
   if (overlay) overlay.classList.remove('blaknot-view-mode');
   if (_blaknotStackObserver) { _blaknotStackObserver.disconnect(); _blaknotStackObserver = null; }
+  if (overlay) { overlay.classList.remove('blaknot-kb'); overlay.style.removeProperty('--nb-h'); overlay.style.removeProperty('--nb-wh'); }
+  _nbKbSavedScroll = null; _nbKbLastH = 0;
   _blaknotPageRuntime = [];
   const stack = document.getElementById('blaknot-pages-stack');
   if (stack) stack.innerHTML = '';
