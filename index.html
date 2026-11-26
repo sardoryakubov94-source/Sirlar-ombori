@@ -428,7 +428,7 @@ async function cam(vid,cb){const c=$("cam"),v=$("cv");let face="environment",st,
  $("rc").onclick=()=>{if(mr&&mr.state==="recording"){mr.stop();$("rc").innerHTML=ic("rec",28);return}ch=[];mr=new MediaRecorder(st);mr.ondataavailable=e=>e.data.size&&ch.push(e.data);mr.onstop=()=>{const t=mr.mimeType||(vid?"video/webm":"audio/webm");cb(new Blob(ch,{type:t}),(vid?"video":"ovoz")+Date.now()+(t.includes("mp4")?".mp4":".webm"));$("ct").textContent="Saqlandi: "+(++n)};mr.start();$("rc").innerHTML=ic("stop",28)};
  $("cx").onclick=end}
 /* ---- sozlamalar ---- */
-function saveFile(n,d){const bl=d instanceof Blob?d:new Blob([d],{type:n.endsWith(".xlsx")?"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet":"application/json"});const a=document.createElement("a");a.href=URL.createObjectURL(bl);a.download=n;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(a.href),4000)}
+function saveFile(n,d){const bl=d instanceof Blob?d:new Blob([d],{type:n.endsWith(".xlsx")?"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet":"application/json"});if(window.AndroidBridge&&window.AndroidBridge.saveFile){const r=new FileReader();r.onload=()=>window.AndroidBridge.saveFile(n,bl.type||"application/octet-stream",String(r.result).split(",")[1]||"");r.readAsDataURL(bl);return}const a=document.createElement("a");a.href=URL.createObjectURL(bl);a.download=n;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(a.href),4000)}
 async function backup(){const meta=await kg("meta"),v=await kg("vault");S.last=Date.now();await save();const v2=await kg("vault");saveFile("zaxira.json",JSON.stringify({meta,vault:{iv:b64(v2.iv),c:b64(v2.c)}}));render()}
 const H=["Ism","Kategoriya","Telefon","Tug‘ilgan sana","Shahar","Kasb","Qayerda tanishgan","Ijtimoiy tarmoq","Foydasi","Izoh"];
 function openSettings(){
@@ -689,9 +689,9 @@ function blaknotSetActivePage(idx) {
   _blaknotFontSize = (_blaknotPages[idx] && _blaknotPages[idx].fontSize) || 14;
   const label = document.getElementById('blaknot-fontsize-label');
   if (label) label.textContent = _blaknotFontSize + 'px';
-  _blaknotEraser = false;
-  const eraserBtn = document.getElementById('blaknot-eraser-btn');
-  if (eraserBtn) eraserBtn.classList.remove('active');
+  // DIQQAT: bu yerda o'chirg'ich (_blaknotEraser) endi OFF qilinmaydi.
+  // Avval har bir barmoq tegishida (pointerdown -> blaknotSetActivePage)
+  // o'chirg'ich o'chib qolardi va u hech qachon ishlamasdi.
   blaknotRenderSwatches();
   blaknotUpdatePageIndicator();
   document.querySelectorAll('.blaknot-page-block').forEach((el, i) => {
@@ -896,7 +896,7 @@ function blaknotExportData() {
   return {title, pages, category:(saved && saved.category) || _blaknotEditorCat || '', date:new Date().toLocaleString('uz-UZ')};
 }
 function blaknotExportFilename(title, ext) {
-  const safe=(title||'Blaknot').replace(/[\\\\/:*?"<>|]+/g,' ').replace(/\\s+/g,' ').trim().slice(0,70)||'Blaknot';
+  const safe=(title||'Blaknot').replace(/[\\\\/:*?"<>|]+/g,' ').replace(/\s+/g,' ').trim().slice(0,70)||'Blaknot';
   return safe+'.'+ext;
 }
 function blaknotExportHtml(data) {
@@ -904,24 +904,73 @@ function blaknotExportHtml(data) {
   return '<!doctype html><html lang="uz"><head><meta charset="utf-8"><title>'+esc(data.title)+'</title><style>body{font-family:Arial,sans-serif;color:#172033;line-height:1.6;margin:32px}h1{font-size:24px;margin:0 0 8px}.meta{color:#667085;font-size:12px;margin-bottom:24px}.page{page-break-after:always;break-after:page;min-height:80vh;padding:8px 0}.page:last-child{page-break-after:auto;break-after:auto}.txt{white-space:pre-wrap;overflow-wrap:anywhere;font-size:14px}.drawing{display:block;max-width:100%;max-height:900px;object-fit:contain;margin:14px auto;border:1px solid #ddd}</style></head><body><h1>'+esc(data.title)+'</h1><div class="meta">'+esc(data.category)+' · '+esc(data.date)+'</div>'+data.pages.map((p,i)=>'<section class="page"><div class="meta">Sahifa '+(i+1)+' / '+data.pages.length+'</div>'+(p.text?'<div class="txt">'+esc(p.text)+'</div>':'')+(p.drawing?'<img class="drawing" src="'+p.drawing+'" alt="Qo‘lyozma chizmasi">':'')+'</section>').join('')+'</body></html>';
 }
 function blaknotDownloadBlob(blob,filename){
+  // Android APK (WebView): <a download> ishlamaydi — fayl Java ko'prigi orqali Yuklamalar papkasiga yoziladi.
+  if(window.AndroidBridge&&window.AndroidBridge.saveFile){
+    const r=new FileReader();
+    r.onload=()=>{try{window.AndroidBridge.saveFile(filename,blob.type||'application/octet-stream',String(r.result).split(',')[1]||'');}catch(e){showAlertModal('Faylni saqlab bo‘lmadi: '+(e.message||e));}};
+    r.onerror=()=>showAlertModal('Faylni tayyorlab bo‘lmadi.');
+    r.readAsDataURL(blob);return;
+  }
   const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=filename;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),2500);
 }
 function blaknotExportWord(){
   const d=blaknotExportData(),html=blaknotExportHtml(d);
   blaknotDownloadBlob(new Blob(['\ufeff',html],{type:'application/msword;charset=utf-8'}),blaknotExportFilename(d.title,'doc'));blaknotCloseExportMenu();
 }
-function blaknotExportPdf(){
-  const d=blaknotExportData(),html=blaknotExportHtml(d),w=window.open('','_blank');
-  if(!w){showAlertModal('PDF saqlash oynasi bloklandi. Brauzerda qalqib chiquvchi oynalarga ruxsat bering.');return;}
-  w.document.open();w.document.write(html);w.document.close();
-  setTimeout(()=>{try{w.focus();w.print();}catch(e){}},600);
-  blaknotCloseExportMenu();
+function blaknotLoadImg(src){return new Promise((res,rej)=>{const im=new Image();im.onload=()=>res(im);im.onerror=()=>rej(new Error('Chizma rasmi o‘qilmadi'));im.src=src;});}
+async function blaknotRenderPdfPages(d){
+  const W=1240,H=1754,M=90,LH=44,FONT='Arial, Helvetica, sans-serif';
+  const cvs=[];let ctx,y;
+  const newPage=()=>{const c=document.createElement('canvas');c.width=W;c.height=H;ctx=c.getContext('2d');ctx.fillStyle='#fff';ctx.fillRect(0,0,W,H);ctx.fillStyle='#172033';ctx.textBaseline='top';y=M;cvs.push(c);};
+  const wrap=(text,maxW)=>{const out=[];String(text||'').split(/\r?\n/).forEach(par=>{if(!par){out.push('');return;}let line='';par.split(' ').forEach(w=>{const t=line?line+' '+w:w;if(ctx.measureText(t).width<=maxW){line=t;return;}if(line)out.push(line);line=w;while(ctx.measureText(line).width>maxW&&line.length>1){let k=line.length-1;while(k>1&&ctx.measureText(line.slice(0,k)).width>maxW)k--;out.push(line.slice(0,k));line=line.slice(k);}});out.push(line);});return out;};
+  const put=(lines,lh)=>{lines.forEach(l=>{if(y+lh>H-M)newPage();ctx.fillText(l,M,y);y+=lh;});};
+  newPage();
+  ctx.font='bold 46px '+FONT;put(wrap(d.title,W-2*M),58);y+=6;
+  ctx.font='24px '+FONT;ctx.fillStyle='#667085';put([d.date+(d.category?'  •  '+d.category:'')],34);ctx.fillStyle='#172033';y+=24;
+  for(let i=0;i<d.pages.length;i++){
+    const p=d.pages[i];
+    if(d.pages.length>1){if(y+60>H-M)newPage();ctx.font='bold 22px '+FONT;ctx.fillStyle='#94a3b8';put([(i+1)+'-bet'],32);ctx.fillStyle='#172033';}
+    if(p.text){ctx.font='30px '+FONT;put(wrap(p.text,W-2*M),LH);y+=10;}
+    if(p.drawing){
+      const im=await blaknotLoadImg(p.drawing);
+      let w=W-2*M,h=w*im.height/im.width;
+      const maxH=H-2*M;if(h>maxH){h=maxH;w=h*im.width/im.height;}
+      if(y+h>H-M)newPage();
+      ctx.drawImage(im,M,y,w,h);ctx.strokeStyle='#cbd5e1';ctx.lineWidth=2;ctx.strokeRect(M,y,w,h);y+=h+30;
+    }
+    y+=20;
+  }
+  return cvs.map(c=>{const b=atob(c.toDataURL('image/jpeg',0.9).split(',')[1]),u=new Uint8Array(b.length);for(let k=0;k<b.length;k++)u[k]=b.charCodeAt(k);return {w:c.width,h:c.height,bytes:u};});
+}
+function blaknotMakePdf(jpegs){
+  const enc=new TextEncoder(),chunks=[],offs=[];let off=0;
+  const push=x=>{const b=typeof x==='string'?enc.encode(x):x;chunks.push(b);off+=b.length;};
+  const obj=(id,fn)=>{offs[id]=off;push(id+' 0 obj\n');fn();push('\nendobj\n');};
+  const n=jpegs.length;
+  push('%PDF-1.4\n');
+  obj(1,()=>push('<< /Type /Catalog /Pages 2 0 R >>'));
+  obj(2,()=>push('<< /Type /Pages /Kids ['+jpegs.map((_,i)=>(3+i*3)+' 0 R').join(' ')+'] /Count '+n+' >>'));
+  jpegs.forEach((j,i)=>{
+    const pid=3+i*3,cid=pid+1,iid=pid+2,content='q 595 0 0 842 0 0 cm /Im0 Do Q';
+    obj(pid,()=>push('<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /XObject << /Im0 '+iid+' 0 R >> >> /Contents '+cid+' 0 R >>'));
+    obj(cid,()=>push('<< /Length '+content.length+' >>\nstream\n'+content+'\nendstream'));
+    obj(iid,()=>{push('<< /Type /XObject /Subtype /Image /Width '+j.w+' /Height '+j.h+' /ColorSpace /DeviceRGB /BitsPerComponent 8 /Filter /DCTDecode /Length '+j.bytes.length+' >>\nstream\n');push(j.bytes);push('\nendstream');});
+  });
+  const xref=off,total=3*n+3;
+  push('xref\n0 '+total+'\n0000000000 65535 f \n');
+  for(let id=1;id<total;id++)push(String(offs[id]).padStart(10,'0')+' 00000 n \n');
+  push('trailer\n<< /Size '+total+' /Root 1 0 R >>\nstartxref\n'+xref+'\n%%EOF');
+  return new Blob(chunks,{type:'application/pdf'});
+}
+async function blaknotExportPdf(){
+  try{const d=blaknotExportData(),jp=await blaknotRenderPdfPages(d);blaknotDownloadBlob(blaknotMakePdf(jp),blaknotExportFilename(d.title,'pdf'));blaknotCloseExportMenu();}
+  catch(e){showAlertModal('PDF tayyorlab bo‘lmadi: '+(e.message||e));}
 }
 async function blaknotExportExcel(){
   const d=blaknotExportData();
   try{const X=await ensureXLSX();const rows=[['Yozuv',d.title],['Bo‘lim',d.category],['Sana',d.date],[],['Sahifa','Matn','Chizma']];
   d.pages.forEach((p,i)=>rows.push([i+1,p.text,p.drawing?'Chizma mavjud (PDF yoki Word faylida to‘liq saqlanadi)':'']));
-  const wb=X.utils.book_new(),ws=X.utils.aoa_to_sheet(rows);ws['!cols']=[{wch:12},{wch:70},{wch:48}];X.utils.book_append_sheet(wb,ws,'Blaknot');X.writeFile(wb,blaknotExportFilename(d.title,'xlsx'));blaknotCloseExportMenu();
+  const wb=X.utils.book_new(),ws=X.utils.aoa_to_sheet(rows);ws['!cols']=[{wch:12},{wch:70},{wch:48}];X.utils.book_append_sheet(wb,ws,'Blaknot');blaknotDownloadBlob(new Blob([X.write(wb,{bookType:'xlsx',type:'array'})],{type:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'}),blaknotExportFilename(d.title,'xlsx'));blaknotCloseExportMenu();
   }catch(e){showAlertModal(e.message||'Excel faylini tayyorlab bo‘lmadi.');}
 }
 function blaknotToggleExportMenu(){const m=document.getElementById('blaknot-export-menu');if(m)m.style.display=m.style.display==='flex'?'none':'flex';}
