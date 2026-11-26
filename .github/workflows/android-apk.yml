@@ -26,7 +26,7 @@ jobs:
         with:
           gradle-version: '8.9'
 
-      - name: Prepare web app assets and launcher icon
+      - name: Prepare original V.K Music app assets
         run: |
           mkdir -p app/src/main/assets
           rsync -a --delete \
@@ -38,8 +38,9 @@ jobs:
             --exclude='README.md' \
             ./ app/src/main/assets/
           test -s app/src/main/assets/index.html
+          test -s app/src/main/assets/icon-192.png
           mkdir -p app/src/main/res/mipmap-hdpi
-          cp icon-512.png app/src/main/res/mipmap-hdpi/ic_launcher.png
+          cp icon-192.png app/src/main/res/mipmap-hdpi/ic_launcher.png
 
       - name: Build debug APK
         run: gradle --no-daemon assembleDebug
@@ -47,7 +48,7 @@ jobs:
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: Sirlar-ombori-APK
+          name: V-K-Music-APK
           path: app/build/outputs/apk/debug/app-debug.apk
           if-no-files-found: error
           retention-days: 14
