@@ -443,6 +443,7 @@ function openSettings(){
 let exitT=0;
 addEventListener("popstate",()=>{if(!mk)return;const re=()=>history.pushState({s:1},"");
  if($("mv").classList.contains("on")){$("mx").click();return re()}
+ if($("blaknot-editor-overlay")&&$("blaknot-editor-overlay").classList.contains("open")){closeBlaknotEditor();return re()}
  if($("cam").classList.contains("on")){$("cx").click();return re()}
  if($("m").classList.contains("on")){const x=$("sh").querySelector("#x");x?x.click():hideM();return re()}
  if(tab!=="home"){tab="home";render();return re()}
@@ -1358,8 +1359,7 @@ document.addEventListener('DOMContentLoaded', function () {
   blaknotRenderSwatches();
   loadBlaknotNotes().then(() => { renderBlaknotList(); });
   const blaknotFab = document.getElementById('blaknot-fab');
-  const activePage = document.querySelector('.page.active');
-  if (blaknotFab) blaknotFab.style.display = (activePage && activePage.id === 'page-blaknot') ? 'flex' : 'none';
+  if (blaknotFab) blaknotFab.style.display = (typeof tab !== 'undefined' && tab === 'notebook') ? 'flex' : 'none';
 });
 
 </script></body></html>
