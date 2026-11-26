@@ -1014,9 +1014,20 @@ function blaknotRenderSwatches() {
 }
 
 function toggleBlaknotEraser() {
+  // O'chirg'ich ham chizish asbobi: tugma bosilganda chizish rejimini
+  // avtomatik yoqamiz, aks holda pointerDown chizishni boshlamaydi.
+  if (_blaknotViewOnly) {
+    _blaknotViewOnly = false;
+  }
+  _blaknotMode = 'draw';
+  applyBlaknotMode();
+
   _blaknotEraser = !_blaknotEraser;
   const eraserBtn = document.getElementById('blaknot-eraser-btn');
-  if (eraserBtn) eraserBtn.classList.toggle('active', _blaknotEraser);
+  if (eraserBtn) {
+    eraserBtn.classList.toggle('active', _blaknotEraser);
+    eraserBtn.setAttribute('aria-pressed', _blaknotEraser ? 'true' : 'false');
+  }
   blaknotRenderSwatches();
 }
 
