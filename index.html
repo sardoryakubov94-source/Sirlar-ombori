@@ -6,7 +6,7 @@
 <link rel="manifest" href="manifest.json">
 <link rel="icon" href="icon-192.png"><link rel="apple-touch-icon" href="icon-192.png">
 <meta name="theme-color" content="#140d2b">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<!-- Excel kutubxonasi kerak bo‘lganda yuklanadi -->
 <style>
 :root{--bg:#f4f5f7;--cd:#fff;--tx:#1b1f27;--mu:#6b7280;--ac:#7c4dff;--bd:#e3e6ea;--dg:#d33;color-scheme:light}
 @media(prefers-color-scheme:dark){:root{--bg:#14161a;--cd:#1e2128;--tx:#eceef2;--mu:#9aa1ad;--ac:#a78bff;--bd:#2c313a;--dg:#ff6b6b;color-scheme:dark}}
@@ -303,6 +303,8 @@ h2.sh{font-size:15px;color:var(--mu);margin:18px 0 0;font-weight:600}
 <input type="file" id="fi" class="hide" accept=".json"><input type="file" id="fx" class="hide" accept=".xlsx,.xls,.csv">
 <script>
 const $=id=>document.getElementById(id),E=new TextEncoder,D=new TextDecoder;
+let _xlsxLoadPromise=null;
+function ensureXLSX(){if(window.XLSX)return Promise.resolve(window.XLSX);if(_xlsxLoadPromise)return _xlsxLoadPromise;_xlsxLoadPromise=new Promise((resolve,reject)=>{const sc=document.createElement("script");sc.src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js";sc.onload=()=>window.XLSX?resolve(window.XLSX):reject(new Error("Excel kutubxonasi topilmadi"));sc.onerror=()=>{_xlsxLoadPromise=null;reject(new Error("Excel kutubxonasini yuklab bo‘lmadi. Internetni tekshiring."))};document.head.appendChild(sc)});return _xlsxLoadPromise;}
 const IC={notebook:'<rect x="4" y="3" width="16" height="18" rx="2.5"/><path d="M8 3v18M11 8h5M11 12h5M11 16h5"/>,home:'<path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/><path d="M10 20v-6h4v6"/>',users:'<circle cx="9" cy="8" r="3.2"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6"/><circle cx="17" cy="9" r="2.5"/><path d="M17 14.5c2.3.3 4 2.2 4 5"/>',user:'<circle cx="12" cy="8" r="3.5"/><path d="M5 20c0-3.9 3.1-7 7-7s7 3.1 7 7"/>',image:'<rect x="3" y="4" width="18" height="16" rx="3"/><circle cx="9" cy="10" r="1.8"/><path d="M4 18l5-5 4 4 3-3 4 4"/>',sliders:'<path d="M4 7h10M18 7h2M4 17h2M10 17h10"/><circle cx="16" cy="7" r="2"/><circle cx="8" cy="17" r="2"/>',star:'<path d="M12 3.5l2.6 5.4 5.9.8-4.3 4.1 1 5.9L12 17l-5.2 2.7 1-5.9L3.5 9.7l5.9-.8z"/>',clock:'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',heart:'<path d="M12 20s-8-5-8-11a4.5 4.5 0 018-2.8A4.5 4.5 0 0120 9c0 6-8 11-8 11z"/>',briefcase:'<rect x="3" y="7" width="18" height="13" rx="2.5"/><path d="M9 7V5.5A1.5 1.5 0 0110.5 4h3A1.5 1.5 0 0115 5.5V7M3 13h18"/>',door:'<path d="M5 21V4a1 1 0 011-1h12a1 1 0 011 1v17M3 21h18"/><circle cx="15" cy="12" r=".8"/>',smile:'<circle cx="12" cy="12" r="9"/><path d="M8.5 14c1 1.5 2.2 2.2 3.5 2.2s2.5-.7 3.5-2.2M9 9.5h.01M15 9.5h.01"/>',folder:'<path d="M3 7a2 2 0 012-2h4l2 2h8a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>',video:'<rect x="3" y="6" width="13" height="12" rx="2.5"/><path d="M16 10l5-3v10l-5-3"/>',mic:'<rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0014 0M12 18v3"/>',plus:'<path d="M12 5v14M5 12h14"/>',lock:'<rect x="5" y="11" width="14" height="9" rx="2.5"/><path d="M8 11V8a4 4 0 018 0v3"/>',search:'<circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/>',music:'<path d="M9 18V6l11-2v12"/><circle cx="6.5" cy="18" r="2.5"/><circle cx="17.5" cy="16" r="2.5"/>',trash:'<path d="M4 7h16M10 7V4h4v3M6 7l1 13h10l1-13"/>',play:'<path d="M8 5l11 7-11 7z"/>',camera:'<path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/>',cake:'<path d="M4 20h16v-6H4zM4 14c2 1.5 4 1.5 6 0s4-1.5 6 0 3 1 4 0M12 10V7"/>',download:'<path d="M12 4v11M7 11l5 5 5-5M5 20h14"/>',upload:'<path d="M12 16V5M7 9l5-5 5 5M5 20h14"/>',tag:'<path d="M3 12V4h8l10 10-8 8z"/><circle cx="7.5" cy="8.5" r="1"/>',key:'<circle cx="8" cy="15" r="4"/><path d="M11 12l9-9M16 7l3 3"/>',phone:'<path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2z"/>',chat:'<path d="M4 5h16v11H9l-5 4z"/>',send:'<path d="M21 3L10 14M21 3l-7 18-4-7-7-4z"/>',check:'<path d="M5 12l5 5 9-10"/>',file:'<path d="M6 3h8l5 5v13H6z"/><path d="M14 3v5h5"/>',refresh:'<path d="M20 11a8 8 0 10-2.3 5.7M20 5v6h-6"/>',close:'<path d="M6 6l12 12M18 6L6 18"/>',rec:'<circle cx="12" cy="12" r="6.5" style="fill:#ff4d4d;stroke:none"/>',stop:'<rect x="7" y="7" width="10" height="10" rx="2"/>'};
 const ic=(n,s=22,f="")=>`<svg class="ic" width="${s}" height="${s}" viewBox="0 0 24 24"${f?` style="color:${f};fill:${f}"`:""}>${IC[n]||""}</svg>`;
 document.querySelectorAll("[data-ic]").forEach(e=>e.innerHTML=ic(e.dataset.ic,+e.dataset.s||22));
@@ -468,11 +470,10 @@ function openSettings(){
  $("x").onclick=hideM;$("s1").onclick=backup;
  $("s2").onclick=()=>$("fi").click();
  $("fi").onchange=async e=>{const f=e.target.files[0];if(!f)return;try{const j=JSON.parse(await f.text());if(!confirm("Joriy ma’lumot almashtiriladi. Davom etilsinmi?"))return;await ks("meta",j.meta);await ks("vault",{iv:ub(j.vault.iv),c:ub(j.vault.c).buffer});alert("Tiklandi. Zaxiradagi kod bilan qayta kiring.");lock()}catch(x){alert("Fayl noto‘g‘ri")}};
- $("s3").onclick=()=>{if(typeof XLSX==="undefined")return alert("Excel kutubxonasi yuklanmadi (internet kerak)");if(!confirm("Excel fayl shifrlanmagan va media’siz saqlanadi. Davom etilsinmi?"))return;
-  const ws=XLSX.utils.aoa_to_sheet([H,...S.people.map(p=>[p.name,p.cat,(p.phones||"").replace(/\n/g,", "),p.bday,p.city,p.job,p.where,p.social,p.benefit,p.note])]);const wb=XLSX.utils.book_new();XLSX.utils.book_append_sheet(wb,ws,"Royxat");saveFile("royxat.xlsx",XLSX.write(wb,{bookType:"xlsx",type:"array"}))};
- $("s4").onclick=()=>typeof XLSX==="undefined"?alert("Excel kutubxonasi yuklanmadi (internet kerak)"):$("fx").click();
+ $("s3").onclick=async()=>{if(!confirm("Excel fayl shifrlanmagan va media’siz saqlanadi. Davom etilsinmi?"))return;try{const X=await ensureXLSX();const ws=X.utils.aoa_to_sheet([H,...S.people.map(p=>[p.name,p.cat,(p.phones||"").replace(/\\n/g,", "),p.bday,p.city,p.job,p.where,p.social,p.benefit,p.note])]);const wb=X.utils.book_new();X.utils.book_append_sheet(wb,ws,"Royxat");saveFile("royxat.xlsx",X.write(wb,{bookType:"xlsx",type:"array"}))}catch(e){alert(e.message)}};
+ $("s4").onclick=async()=>{try{await ensureXLSX();$("fx").click()}catch(e){alert(e.message)}};
  $("fx").onchange=async e=>{const f=e.target.files[0];if(!f)return;try{
-  const wb=XLSX.read(await f.arrayBuffer(),{type:"array"}),rows=XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]],{defval:"",raw:false});
+  const X=await ensureXLSX();const wb=X.read(await f.arrayBuffer(),{type:"array"}),rows=X.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]],{defval:"",raw:false});
   const g=(r,ks)=>{for(const k in r){const l=k.toLowerCase().replace(/[‘’'`]/g,"");if(ks.some(x=>l.includes(x)))return String(r[k]).trim()}return""};
   let n=0,sk=0;const seen=new Set(S.people.map(p=>(p.name+"|"+p.phones).toLowerCase()));
   for(const r of rows){const name=g(r,["ism","name","fio"]);if(!name){sk++;continue}const phones=g(r,["telefon","phone","tel"]).replace(/[,;]\s*/g,"\n"),id=(name+"|"+phones).toLowerCase();if(seen.has(id)){sk++;continue}seen.add(id);
@@ -949,12 +950,12 @@ function blaknotExportPdf(){
   setTimeout(()=>{try{w.focus();w.print();}catch(e){}},600);
   blaknotCloseExportMenu();
 }
-function blaknotExportExcel(){
+async function blaknotExportExcel(){
   const d=blaknotExportData();
-  if(typeof XLSX==='undefined'){showAlertModal('Excel eksport kutubxonasi yuklanmadi. Internetga ulanib qayta urinib ko‘ring.');return;}
-  const rows=[['Yozuv',d.title],['Bo‘lim',d.category],['Sana',d.date],[],['Sahifa','Matn','Chizma']];
+  try{const X=await ensureXLSX();const rows=[['Yozuv',d.title],['Bo‘lim',d.category],['Sana',d.date],[],['Sahifa','Matn','Chizma']];
   d.pages.forEach((p,i)=>rows.push([i+1,p.text,p.drawing?'Chizma mavjud (PDF yoki Word faylida to‘liq saqlanadi)':'']));
-  const wb=XLSX.utils.book_new(),ws=XLSX.utils.aoa_to_sheet(rows);ws['!cols']=[{wch:12},{wch:70},{wch:48}];XLSX.utils.book_append_sheet(wb,ws,'Blaknot');XLSX.writeFile(wb,blaknotExportFilename(d.title,'xlsx'));blaknotCloseExportMenu();
+  const wb=X.utils.book_new(),ws=X.utils.aoa_to_sheet(rows);ws['!cols']=[{wch:12},{wch:70},{wch:48}];X.utils.book_append_sheet(wb,ws,'Blaknot');X.writeFile(wb,blaknotExportFilename(d.title,'xlsx'));blaknotCloseExportMenu();
+  }catch(e){showAlertModal(e.message||'Excel faylini tayyorlab bo‘lmadi.');}
 }
 function blaknotToggleExportMenu(){const m=document.getElementById('blaknot-export-menu');if(m)m.style.display=m.style.display==='flex'?'none':'flex';}
 function blaknotCloseExportMenu(){const m=document.getElementById('blaknot-export-menu');if(m)m.style.display='none';}
