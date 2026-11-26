@@ -75,6 +75,53 @@ h2.sh{font-size:15px;color:var(--mu);margin:18px 0 0;font-weight:600}
 .fn b{color:#a59bd0}.fn .on b,.fn .on i{color:#f0b04a}
 .tl .i{color:var(--ac);line-height:0;margin-bottom:6px}.tl .i svg{width:28px;height:28px}
 .tr i svg{width:20px;height:20px}#cc button{display:flex;align-items:center;justify-content:center}
+  /* ===== BLAKNOT ===== */
+  .blaknot-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .blaknot-card{background:linear-gradient(145deg,#22334a,#1a2635);border:1.5px solid rgba(34,211,165,0.45);box-shadow:inset 0 1px 0 rgba(255,255,255,0.05);border-radius:12px;padding:12px;cursor:pointer;display:flex;flex-direction:column;gap:6px;min-height:120px}
+  .blaknot-card-cat{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:var(--green);background:rgba(34,211,165,0.1);padding:2px 7px;border-radius:20px;align-self:flex-start}
+  .blaknot-card-title{font-size:13.5px;font-weight:700;color:var(--text2);line-height:1.3;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+  .blaknot-card-snippet{font-size:11.5px;color:var(--muted);line-height:1.4;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;flex:1}
+  .blaknot-card-thumb{width:100%;height:70px;object-fit:cover;border-radius:8px;background:var(--blaknot-paper);border:1px solid var(--border2)}
+  .blaknot-card-date{font-size:9.5px;color:var(--muted);margin-top:auto}
+  .blaknot-chip{flex-shrink:0;background:var(--bg4);border:1px solid var(--border2);color:var(--text3);border-radius:20px;padding:7px 13px;font-size:11.5px;font-weight:700;cursor:pointer;white-space:nowrap}
+  .blaknot-chip.active{background:rgba(34,211,165,0.15);border-color:rgba(34,211,165,0.5);color:var(--green)}
+  #blaknot-filter-chips{flex-wrap:wrap;overflow-x:visible}
+  #blaknot-filter-chips .blaknot-chip{padding:13px 18px;font-size:14px;font-weight:800;border-radius:14px;flex:1 1 auto;text-align:center;border:1.5px solid rgba(34,211,165,0.45)}
+  .blaknot-tool-btn{width:40px;height:40px;border-radius:10px;background:var(--bg4);border:1px solid var(--border2);color:var(--text2);font-size:15px;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0}
+  .blaknot-tool-btn.active{background:rgba(34,211,165,0.2);border-color:var(--green);color:var(--green)}
+  .blaknot-swatch{width:26px;height:26px;border-radius:50%;border:2px solid transparent;cursor:pointer;flex-shrink:0;padding:0}
+  .blaknot-swatch.active{border-color:var(--text2);box-shadow:0 0 0 1px var(--muted)}
+  /* Ko'rish rejimi (tayyor yozuv ochilganda "Tahrirlash" bosilmaguncha) —
+     faqat tahrirlash uchun kerakli asboblarni yashiradi, zoom tugmasi va
+     list navigatsiyasi esa doim ko'rinishda qoladi */
+  #blaknot-editor-overlay.blaknot-view-mode .blaknot-edit-only{display:none !important}
+  #blaknot-editor-overlay:not(.blaknot-view-mode) #blaknot-viewmode-hint{display:none !important}
+  #blaknot-viewmode-hint{font-size:11.5px;font-weight:700;color:var(--green);background:rgba(34,211,165,0.1);border:1px solid rgba(34,211,165,0.35);border-radius:8px;padding:6px 10px;margin-bottom:10px;text-align:center}
+  .seg-btn.active{background:rgba(34,211,165,0.2);color:var(--green);box-shadow:inset 0 0 0 1.5px rgba(34,211,165,0.5)}
+
+
+  :root{--green:var(--ac);--red:var(--dg);--muted:var(--mu);--text:var(--tx);--text2:var(--tx);--text3:var(--mu);--border:var(--bd);--border2:var(--bd);--bg4:var(--bg);--bg3:var(--cd);--blaknot-paper:#f8fafc}
+  .blaknot-overlay{position:fixed;inset:0;background:#0009;display:none;align-items:center;justify-content:center;z-index:40;padding:0}
+  .blaknot-overlay.open{display:flex}
+  .blaknot-modal{background:var(--bg);color:var(--tx);width:100%;max-width:720px;height:100%;max-height:100%;overflow:hidden;display:flex;flex-direction:column;padding:0}
+  .sabab-fs-head{display:flex;align-items:center;gap:10px;padding:12px 14px;flex:none}
+  .sabab-fs-head .modal-title{flex:1;font-size:17px;font-weight:700}
+  .sabab-fs-close{width:38px;height:38px;border:1px solid var(--bd);border-radius:10px;background:var(--cd);color:var(--tx);display:flex;align-items:center;justify-content:center;cursor:pointer}
+  .sabab-fs-scroll{padding:12px 14px;overflow-y:auto;flex:1;min-height:0}
+  .sabab-fs-foot{padding:8px 14px calc(12px + env(safe-area-inset-bottom,0px));border-top:1px solid var(--bd);flex:none;background:var(--bg)}
+  .form-input{width:100%;padding:11px;border:1px solid var(--bd);border-radius:10px;background:var(--cd);color:var(--tx)}
+  .modal-btns{display:flex;gap:8px}
+  .btn-cancel,.btn-save{flex:1;border-radius:10px;padding:11px;border:1px solid var(--bd);font-weight:700;cursor:pointer}
+  .btn-cancel{background:var(--cd);color:var(--tx)}
+  .btn-save{background:var(--ac);color:white;border-color:var(--ac)}
+  .blaknot-chip{color:var(--tx)}
+  .blaknot-card{background:var(--cd);border-color:var(--bd)}
+  .blaknot-card-title{color:var(--tx)}
+  .blaknot-card-snippet,.blaknot-card-date{color:var(--mu)}
+  .blaknot-page-canvas-wrap{touch-action:pan-y}
+  #blaknot-pages-stack{background:#e7ebf0}
+  @media(prefers-color-scheme:dark){:root{--blaknot-paper:#eafcf4}}
+
 </style></head><body>
 <div id="lk">
  <div class="fb"><div class="lgo" id="lg"><svg viewBox="0 0 100 100"><g fill="#fff"><rect x="18" y="38" width="8" height="24" rx="4"/><rect x="31" y="26" width="8" height="48" rx="4"/><rect x="46" y="16" width="8" height="68" rx="4"/><rect x="61" y="30" width="8" height="40" rx="4"/><rect x="74" y="40" width="8" height="20" rx="4"/></g></svg></div><b>V.K Music</b><button class="btn" id="lgn">Kirish</button></div>
@@ -91,7 +138,119 @@ h2.sh{font-size:15px;color:var(--mu);margin:18px 0 0;font-weight:600}
  <div id="vh"></div>
  <div id="vp" class="hide"><input id="q" placeholder="Qidirish..." style="margin-top:10px"><select id="so"><option value="n">Ism bo‘yicha</option><option value="new">Yangi qo‘shilgan</option><option value="lc">Oxirgi aloqa</option></select><div class="chips" id="chips"></div><div id="list"></div></div>
  <div id="vm" class="hide"></div>
- <nav id="nv"><button data-t="home"><em data-ic="home"></em><span>Bosh</span></button><button data-t="people"><em data-ic="users"></em><span>Odamlar</span></button><button data-t="media"><em data-ic="image"></em><span>Media</span></button><button data-t="set"><em data-ic="sliders"></em><span>Sozlama</span></button></nav>
+<!-- BLAKNOT -->
+<div id="vb" class="hide">
+  <div id="blaknot-filter-chips" style="display:flex;gap:6px;overflow-x:auto;margin-bottom:14px;padding-bottom:2px">
+    <button class="blaknot-chip active" data-cat="all" onclick="setBlaknotFilter('all',this)" data-i18n="blaknot_cat_all">Barchasi</button>
+    <button class="blaknot-chip" data-cat="qoida" onclick="setBlaknotFilter('qoida',this)" data-i18n="blaknot_cat_qoida">Qoidalar</button>
+    <button class="blaknot-chip" data-cat="strategiya" onclick="setBlaknotFilter('strategiya',this)" data-i18n="blaknot_cat_strategiya">Strategiya</button>
+    <button class="blaknot-chip" data-cat="eslatma" onclick="setBlaknotFilter('eslatma',this)" data-i18n="blaknot_cat_eslatma">Eslatma</button>
+    <button class="blaknot-chip" data-cat="boshqa" onclick="setBlaknotFilter('boshqa',this)" data-i18n="blaknot_cat_boshqa">Boshqa</button>
+  </div>
+  <div id="blaknot-empty" style="display:none;text-align:center;padding:50px 10px;color:var(--muted)">
+    <div style="font-size:38px;margin-bottom:10px">📓</div>
+    <div style="font-size:13px" data-i18n="blaknot_empty">Hali yozuv yo'q. "+ Yangi" tugmasini bosing.</div>
+  </div>
+  <div id="blaknot-list" class="blaknot-grid"></div>
+</div>
+
+<!-- Blaknot uchun dumaloq "+ Yangi" tugmasi — AI tugmasi kabi, lekin o'ng pastki
+     burchakda, joyidan siljimaydigan (fixed) holatda. Faqat Blaknot ro'yxat sahifasida
+     ko'rinadi — Yozuv (editor) ochilganda avtomatik yashiriladi. -->
+<button id="blaknot-fab" onclick="openBlaknotEditor(null)" title="Yangi yozuv"
+  style="display:none;position:fixed;right:16px;bottom:100px;width:64px;height:64px;border-radius:50%;
+  background:linear-gradient(135deg,#0f9d74,#22d3a5);border:none;color:#fff;font-size:30px;font-weight:800;
+  line-height:1;box-shadow:0 6px 22px rgba(34,211,165,.5);z-index:9997;cursor:pointer;
+  align-items:center;justify-content:center">+</button>
+
+<!-- BLAKNOT EDITOR — to'liq ekran, Samsung Notes uslubida (matn + chizish) -->
+<div class="blaknot-overlay" id="blaknot-editor-overlay">
+  <div class="blaknot-modal" style="height:100vh;max-height:100vh;border-radius:0;border-top:none;display:flex;flex-direction:column;padding:0">
+    <div class="sabab-fs-head" style="border-bottom:1px solid var(--border)">
+      <button class="sabab-fs-close" onclick="closeBlaknotEditor()">✕</button>
+      <div class="modal-title" style="margin-bottom:0" data-i18n="blaknot_editor_title">Yozuv</div>
+      <div style="display:flex;align-items:center;gap:4px">
+        <button class="sabab-fs-close" id="blaknot-edit-btn" onclick="blaknotEnableEdit()" title="Tahrirlash" style="display:none">✏️</button>
+        <button class="sabab-fs-close" id="blaknot-delete-btn" onclick="deleteBlaknotNoteConfirm()" style="color:var(--red);visibility:hidden">🗑</button>
+      </div>
+    </div>
+    <div class="sabab-fs-scroll" style="padding-top:12px">
+      <div id="blaknot-viewmode-hint">👁 Ko'rish rejimi — tahrirlash uchun ✏️ tugmasini bosing</div>
+      <input type="text" id="blaknot-input-title" class="form-input" placeholder="Sarlavha..." data-i18n-placeholder="blaknot_title_placeholder" style="font-size:16px;font-weight:700;margin-bottom:10px">
+      <div id="blaknot-cat-chips" style="display:none;gap:6px;overflow-x:auto;margin-bottom:12px;padding-bottom:2px">
+        <button class="blaknot-chip active" data-cat="qoida" onclick="setBlaknotEditorCat('qoida',this)" data-i18n="blaknot_cat_qoida">Qoidalar</button>
+        <button class="blaknot-chip" data-cat="strategiya" onclick="setBlaknotEditorCat('strategiya',this)" data-i18n="blaknot_cat_strategiya">Strategiya</button>
+        <button class="blaknot-chip" data-cat="eslatma" onclick="setBlaknotEditorCat('eslatma',this)" data-i18n="blaknot_cat_eslatma">Eslatma</button>
+        <button class="blaknot-chip" data-cat="boshqa" onclick="setBlaknotEditorCat('boshqa',this)" data-i18n="blaknot_cat_boshqa">Boshqa</button>
+      </div>
+      <div id="blaknot-combo-panel">
+        <div class="blaknot-edit-only" style="display:flex;align-items:center;justify-content:space-between;gap:6px;margin-bottom:8px">
+          <button class="blaknot-tool-btn" id="blaknot-text-toggle-btn" onclick="setBlaknotMode('text')" title="Matn yozish" style="font-weight:900;font-size:16px">T</button>
+          <button class="blaknot-tool-btn" id="blaknot-draw-toggle-btn" onclick="setBlaknotMode('draw')" title="Chizish">
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.85 2.85 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/><path d="m15 5 4 4"/></svg>
+          </button>
+          <div id="blaknot-color-swatches" style="display:flex;gap:6px;flex:1;justify-content:center"></div>
+          <button class="blaknot-tool-btn" onclick="blaknotFontSizeDec()" title="Shriftni kichraytirish" style="font-size:13px;font-weight:800">A-</button>
+        </div>
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:6px">
+          <input type="range" id="blaknot-brush-size" class="blaknot-edit-only" min="1" max="18" value="3" style="flex:1;min-width:40px;max-width:90px">
+          <button class="blaknot-tool-btn blaknot-edit-only" id="blaknot-eraser-btn" onclick="toggleBlaknotEraser()" title="O'chirg'ich">
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m7 21-4.3-4.3c-1-1-1-2.5 0-3.4l9.6-9.6c1-1 2.5-1 3.4 0l5.6 5.6c1 1 1 2.5 0 3.4L13 21"/><path d="M22 21H7"/><path d="m5 11 9 9"/></svg>
+          </button>
+          <button class="blaknot-tool-btn blaknot-edit-only" onclick="blaknotUndo()" title="Bekor qilish">
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 14 4 9l5-5"/><path d="M4 9h10.5a5.5 5.5 0 0 1 5.5 5.5v0a5.5 5.5 0 0 1-5.5 5.5H11"/></svg>
+          </button>
+          <button class="blaknot-tool-btn blaknot-edit-only" onclick="blaknotClearCanvas()" title="Tozalash">
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/></svg>
+          </button>
+          <button class="blaknot-tool-btn blaknot-edit-only" onclick="document.getElementById('blaknot-image-input').click()" title="Rasm yuklash">
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2.5"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
+          </button>
+          <button class="blaknot-tool-btn" onclick="blaknotResetZoom()" title="To'liq ko'rish (hech narsa qirqilmasin)">
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7V3h4"/><path d="M17 3h4v4"/><path d="M21 17v4h-4"/><path d="M7 21H3v-4"/></svg>
+          </button>
+          <input type="file" id="blaknot-image-input" accept="image/*" style="display:none" onchange="blaknotHandleImageUpload(event)">
+          <button class="blaknot-tool-btn blaknot-edit-only" onclick="blaknotFontSizeInc()" title="Shriftni kattalashtirish (14px)" id="blaknot-fontsize-inc-btn" style="font-size:15px;font-weight:800">A+</button>
+        </div>
+        <div id="blaknot-pages-stack" class="no-swipe" style="position:relative;max-height:min(60vh,520px);border-radius:10px;overflow-y:auto;overflow-x:hidden;border:1.5px solid var(--border2);background:#e7ebf0;-webkit-overflow-scrolling:touch;scroll-behavior:smooth"></div>
+        <div id="blaknot-page-nav" style="display:flex;align-items:center;justify-content:center;gap:8px;margin-top:6px">
+          <button class="blaknot-tool-btn" id="blaknot-page-prev-btn" onclick="blaknotPrevPage()" title="Oldingi list" style="width:32px;height:32px">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+          </button>
+          <span id="blaknot-page-indicator" style="font-size:11px;font-weight:700;color:var(--text3)">1 / 1</span>
+          <button class="blaknot-tool-btn" id="blaknot-page-next-btn" onclick="blaknotNextPage()" title="Keyingi list" style="width:32px;height:32px">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+          </button>
+          <button class="blaknot-chip blaknot-edit-only" onclick="blaknotAddPage()" style="flex:none;padding:5px 10px;font-size:10.5px">+ Yangi list</button>
+        </div>
+      </div>
+    </div>
+    <div class="sabab-fs-foot" style="padding:6px 16px 10px">
+      <div class="modal-btns" style="margin-top:0;gap:8px">
+        <button class="btn-cancel" onclick="closeBlaknotEditor()" data-i18n="blaknot_cancel" style="padding:8px;font-size:12.5px">Bekor qilish</button>
+        <button class="btn-save" onclick="saveBlaknotNote()" data-i18n="blaknot_save" style="padding:10px;font-size:13.5px">Saqlash</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- BLAKNOT: bo'lim tanlash oynasi — FAQAT yangi yozuv birinchi marta
+     saqlanayotganda ochiladi. Mavjud yozuvni tahrirlab saqlashda bu oyna
+     hech qachon chiqmaydi, chunki bo'lim allaqachon ma'lum. -->
+<div class="blaknot-overlay" id="blaknot-catpick-overlay" style="z-index:500">
+  <div class="blaknot-modal" style="max-width:320px;padding:20px;margin:auto">
+    <div class="modal-title" style="text-align:center">Qaysi bo'limga saqlansin?</div>
+    <div style="display:flex;flex-direction:column;gap:8px;margin-top:6px">
+      <button class="blaknot-chip" style="width:100%;padding:13px;font-size:14px;font-weight:700" onclick="blaknotConfirmSaveCat('qoida')" data-i18n="blaknot_cat_qoida">Qoidalar</button>
+      <button class="blaknot-chip" style="width:100%;padding:13px;font-size:14px;font-weight:700" onclick="blaknotConfirmSaveCat('strategiya')" data-i18n="blaknot_cat_strategiya">Strategiya</button>
+      <button class="blaknot-chip" style="width:100%;padding:13px;font-size:14px;font-weight:700" onclick="blaknotConfirmSaveCat('eslatma')" data-i18n="blaknot_cat_eslatma">Eslatma</button>
+      <button class="blaknot-chip" style="width:100%;padding:13px;font-size:14px;font-weight:700" onclick="blaknotConfirmSaveCat('boshqa')" data-i18n="blaknot_cat_boshqa">Boshqa</button>
+    </div>
+  </div>
+</div>
+
+
+ <nav id="nv"><button data-t="home"><em data-ic="home"></em><span>Bosh</span></button><button data-t="people"><em data-ic="users"></em><span>Odamlar</span></button><button data-t="media"><em data-ic="image"></em><span>Media</span></button><button data-t="notebook"><em>📓</em><span>Bloknot</span></button><button data-t="set"><em data-ic="sliders"></em><span>Sozlama</span></button></nav>
  <button id="fab" class="btn hide" data-ic="plus" data-s="28"></button>
 </div>
 <div class="modal" id="m"><div class="sheet" id="sh"></div></div>
@@ -139,10 +298,10 @@ async function init(){try{db=await idb()}catch(e){return}
  $("go").onclick=unlock;$("pw").onkeydown=e=>{if(e.key==="Enter")unlock()}}
 async function unlock(){const pw=$("pw").value,meta=await kg("meta");$("er").textContent="";
  try{
-  if(!meta){if(pw.length<6)return $("er").textContent="Kamida 6 belgi";if(pw!==$("pw2").value)return $("er").textContent="Kodlar mos emas";raw=crypto.getRandomValues(new Uint8Array(32));await wrap(pw);mk=await imp();S={people:[],cats:CATS0,last:Date.now(),media:[]};await save()}
-  else{raw=new Uint8Array(await crypto.subtle.decrypt({name:"AES-GCM",iv:ub(meta.iv)},await kek(pw,ub(meta.salt)),ub(meta.wk)));mk=await imp();const v=await kg("vault");let d=v?JSON.parse(D.decode(await opn(v))):{};if(Array.isArray(d))d={people:d};S=Object.assign({people:[],cats:CATS0,last:Date.now(),media:[]},d);const RN={"Munosabatdagilar":"Do‘stlar","Prosta tanishlar":"Oddiy tanishlar","Mehmonlar":"Boshqa"};S.cats=[...new Set(S.cats.map(c=>RN[c]||c))];if(S.cats.includes("Boshqa"))S.cats=[...S.cats.filter(c=>c!=="Boshqa"),"Boshqa"];S.people.forEach(p=>p.cat=RN[p.cat]||p.cat)}
+  if(!meta){if(pw.length<6)return $("er").textContent="Kamida 6 belgi";if(pw!==$("pw2").value)return $("er").textContent="Kodlar mos emas";raw=crypto.getRandomValues(new Uint8Array(32));await wrap(pw);mk=await imp();S={people:[],cats:CATS0,last:Date.now(),media:[],notebook:[]};await save()}
+  else{raw=new Uint8Array(await crypto.subtle.decrypt({name:"AES-GCM",iv:ub(meta.iv)},await kek(pw,ub(meta.salt)),ub(meta.wk)));mk=await imp();const v=await kg("vault");let d=v?JSON.parse(D.decode(await opn(v))):{};if(Array.isArray(d))d={people:d};S=Object.assign({people:[],cats:CATS0,last:Date.now(),media:[],notebook:[]},d);const RN={"Munosabatdagilar":"Do‘stlar","Prosta tanishlar":"Oddiy tanishlar","Mehmonlar":"Boshqa"};S.cats=[...new Set(S.cats.map(c=>RN[c]||c))];if(S.cats.includes("Boshqa"))S.cats=[...S.cats.filter(c=>c!=="Boshqa"),"Boshqa"];S.people.forEach(p=>p.cat=RN[p.cat]||p.cat)}
  }catch(e){return $("er").textContent="Noto‘g‘ri kod"}
- $("pw").value="";history.pushState({s:1},"");$("pm").classList.remove("on");$("lk").classList.add("hide");$("app").classList.remove("hide");tab="home";render()}
+ $("pw").value="";history.pushState({s:1},"");$("pm").classList.remove("on");$("lk").classList.add("hide");$("app").classList.remove("hide");tab="home";loadBlaknotNotes().then(()=>renderBlaknotList());render()}
 const lock=()=>location.reload();
 ["pointerdown","keydown"].forEach(e=>addEventListener(e,()=>lastAct=Date.now(),true));
 setInterval(()=>{if(mk&&Date.now()-lastAct>12e4&&!$("cam").classList.contains("on"))lock()},5000);
@@ -154,10 +313,11 @@ $("lkb").onclick=lock;
 const allMedia=()=>[...(S.media||[]).map(m=>({m,o:null})),...S.people.flatMap(p=>(p.media||[]).map(m=>({m,o:p})))];
 const show=h=>{$("sh").innerHTML=h;$("m").classList.add("on")},hideM=()=>$("m").classList.remove("on");
 function render(){
- ["home","people","media"].forEach(t=>$({home:"vh",people:"vp",media:"vm"}[t]).classList.toggle("hide",tab!==t));
+ ["home","people","media","notebook"].forEach(t=>{const el=$({home:"vh",people:"vp",media:"vm",notebook:"vb"}[t]);if(el)el.classList.toggle("hide",tab!==t)});
  $("nv").querySelectorAll("button").forEach(b=>b.classList.toggle("on",b.dataset.t===tab));
- $("tt").textContent={home:"Bosh sahifa",people:"Odamlar",media:"Media"}[tab];$("fab").classList.toggle("hide",tab==="home");
- tab==="home"?rHome():tab==="people"?rPeople():rMedia()}
+ $("tt").textContent={home:"Bosh sahifa",people:"Odamlar",media:"Media",notebook:"Bloknot"}[tab];$("fab").classList.toggle("hide",tab==="home"||tab==="notebook");
+ const nbFab=$("blaknot-fab");if(nbFab)nbFab.style.display=tab==="notebook"?"flex":"none";
+ tab==="home"?rHome():tab==="people"?rPeople():tab==="media"?rMedia():renderBlaknotList()}
 function rHome(){const t=today(),P=S.people,A=allMedia(),acts=[];
  const due=P.filter(p=>p.rem&&p.rem<=t),bd=P.filter(p=>p.bday&&dtb(p.bday)<=7);let b="";
  if(due.length)b+=`<div class="bn" data-a="rem">${ic("clock",18)} Eslatmalar: ${due.length} ta</div>`;
@@ -290,4 +450,916 @@ addEventListener("popstate",()=>{if(!mk)return;const re=()=>history.pushState({s
  exitT=Date.now()+2200;toast("Chiqish uchun yana bir marta orqaga bosing");re()});
 init();
 if("serviceWorker" in navigator)addEventListener("load",()=>navigator.serviceWorker.register("sw.js").catch(()=>{}));
+// ============================================================
+// BLAKNOT — qoidalar, strategiyalar va eslatmalar uchun eslatma
+// daftari. Har bir yozuv matn va/yoki qo'lda chizma (Samsung Notes
+// uslubida) saqlashi mumkin. Har akkaunt uchun alohida (tjKey orqali).
+// ============================================================
+let _blaknotNotes = [];
+let _blaknotFilter = 'all';
+let _blaknotEditingId = null;
+let _blaknotMode = 'text';
+let _blaknotViewOnly = false; // tayyor (mavjud) yozuv ochilganda avval faqat ko'rish rejimida bo'ladi
+let _blaknotEditorCat = 'qoida';
+let _blaknotPendingSave = null; // Yangi yozuv bo'lim tanlanguncha shu yerda kutib turadi
+
+let _blaknotColor = '#0f172a';
+let _blaknotSize = 3;
+let _blaknotEraser = false;
+// Chizish holati (shtrixlar, canvas o'lchami va h.k.) endi har bir list uchun
+// alohida saqlanadi — _blaknotPageRuntime[idx] ichida (pastga qarang).
+let _blaknotFontSize = 14;
+
+// Zoom/pan (ikki barmoq bilan yaqinlashtirish-uzoqlashtirish) — daftar varag'i
+// ko'rinadigan oynadan kattaroq, shu sababli uzoqlashtirilganda yon-atrofda
+// qo'shimcha bo'sh joy ko'rinadi, yaqinlashtirilganda esa mayda tafsilotlarni
+// chizish/yozish qulay bo'ladi.
+const BLAKNOT_ZOOM_MIN = 0.5;
+const BLAKNOT_ZOOM_MAX = 3;
+
+// Ko'p listli (sahifali) yozuvlar — har bir list o'z matni va chizmasiga ega.
+// Endi barcha listlar bitta uzun, tepadan-pastga skrollanadigan varaq ichida
+// ketma-ket joylashadi (Samsung Notes uslubida) — foydalanuvchi pastga skroll
+// qilganda oldingi listning yozuvi ham ko'rinib turadi.
+let _blaknotPages = [{ text: '', drawing: null, fontSize: 14 }];
+let _blaknotPageIndex = 0; // hozir "faol" (asboblar shu listga ta'sir qiladigan) list
+let _blaknotPageRuntime = []; // har bir list uchun DOM/chizish holati (saqlanmaydi)
+let _blaknotStackObserver = null;
+
+const BLAKNOT_COLORS = ['#0f172a', '#22d3a5', '#f87171', '#fbbf24', '#7ab3e0', '#8b5cf6'];
+const BLAKNOT_CAT_LABELS_UZ = { qoida: "Qoida", strategiya: "Strategiya", eslatma: "Eslatma", boshqa: "Boshqa" };
+const BLAKNOT_CAT_LABELS_RU = { qoida: "Правило", strategiya: "Стратегия", eslatma: "Заметка", boshqa: "Другое" };
+
+function blaknotCatLabel(cat) {
+  const lang = (typeof currentLang !== 'undefined' && currentLang === 'ru') ? BLAKNOT_CAT_LABELS_RU : BLAKNOT_CAT_LABELS_UZ;
+  return lang[cat] || lang.boshqa;
+}
+
+
+// ============================================================
+// BLAKNOT — saqlash IndexedDB orqali (localStorage EMAS).
+// Sabab: rasm/chizmali yozuvlar katta hajmli (base64) bo'lishi mumkin,
+// localStorage esa odatda atigi 5-10 MB bilan cheklangan — shu joy
+// to'lib qolganda yozuv jimgina saqlanmay qolar edi (xato "yutilardi").
+// IndexedDB ancha katta joy beradi (odatda yuzlab MB — bir necha GB)
+// va asinxron ishlaydi, shuning uchun UI qotib qolmaydi.
+// ============================================================
+function loadBlaknotNotes(){
+  _blaknotNotes = (typeof S !== 'undefined' && S && Array.isArray(S.notebook)) ? S.notebook : [];
+  return Promise.resolve();
+}
+function saveBlaknotNotes(){
+  if (typeof S === 'undefined' || !S) return Promise.resolve();
+  S.notebook = _blaknotNotes;
+  return save().catch(err => { console.error('Bloknot saqlash xatosi:', err); alert('Bloknotni saqlashda xatolik yuz berdi.'); });
+}
+function showAlertModal(message){ alert(message); }
+function showConfirmModal(options){ if (confirm(options.message || 'Davom etilsinmi?') && typeof options.onConfirm === 'function') options.onConfirm(); }
+
+function blaknotEscape(s) {
+  const d = document.createElement('div');
+  d.innerText = s || '';
+  return d.innerHTML;
+}
+
+function setBlaknotFilter(cat, el) {
+  _blaknotFilter = cat;
+  document.querySelectorAll('#blaknot-filter-chips .blaknot-chip').forEach(c => c.classList.remove('active'));
+  if (el) el.classList.add('active');
+  renderBlaknotList();
+}
+
+function renderBlaknotList() {
+  const wrap = document.getElementById('blaknot-list');
+  const empty = document.getElementById('blaknot-empty');
+  if (!wrap) return;
+  let list = _blaknotNotes.slice().sort((a, b) => (b.updatedAt || 0) - (a.updatedAt || 0));
+  if (_blaknotFilter !== 'all') list = list.filter(n => n.category === _blaknotFilter);
+  wrap.innerHTML = '';
+  if (empty) empty.style.display = list.length === 0 ? 'block' : 'none';
+  list.forEach(n => {
+    const card = document.createElement('div');
+    card.className = 'blaknot-card';
+    card.onclick = () => openBlaknotEditor(n.id);
+    const firstPage = (Array.isArray(n.pages) && n.pages[0]) ? n.pages[0] : { text: n.text, drawing: n.drawing };
+    const pageCount = Array.isArray(n.pages) ? n.pages.length : 1;
+    const dateStr = n.updatedAt ? new Date(n.updatedAt).toLocaleDateString('uz-UZ', { day: '2-digit', month: '2-digit', year: '2-digit' }) : '';
+    card.innerHTML =
+      '<div class="blaknot-card-cat">' + blaknotCatLabel(n.category) + (pageCount > 1 ? ' · ' + pageCount + ' bet' : '') + '</div>' +
+      (firstPage.drawing ? '<img src="' + firstPage.drawing + '" class="blaknot-card-thumb">' : '') +
+      '<div class="blaknot-card-title">' + blaknotEscape(n.title || "Sarlavhasiz") + '</div>' +
+      (firstPage.text ? '<div class="blaknot-card-snippet">' + blaknotEscape(firstPage.text) + '</div>' : '') +
+      '<div class="blaknot-card-date">' + dateStr + '</div>';
+    wrap.appendChild(card);
+  });
+}
+
+function setBlaknotEditorCat(cat, el) {
+  _blaknotEditorCat = cat;
+  document.querySelectorAll('#blaknot-cat-chips .blaknot-chip').forEach(c => c.classList.remove('active'));
+  if (el) el.classList.add('active');
+}
+
+// Matn va chizish bitta oynada birga ko'rinadi (canvas ustida shaffof textarea).
+// "T" yoki qalam tugmasi bosilganda o'sha rejim yoqiladi. AGAR ALLAQACHON FAOL
+// bo'lgan tugma qayta bosilsa — rejim butunlay OʻCHADI (na T, na qalam faol),
+// shunda ekranga barmoq tegishi chizish/yozishga emas, balki listlarni
+// tepa-pastga SKROLL qilishga sarflanadi (Samsung Notes'dagidek).
+function toggleBlaknotTextMode() {
+  setBlaknotMode(_blaknotMode === 'text' ? 'none' : 'text');
+}
+
+function setBlaknotMode(mode) {
+  _blaknotMode = (_blaknotMode === mode) ? 'none' : mode;
+  applyBlaknotMode();
+}
+
+function applyBlaknotMode() {
+  const tBtn = document.getElementById('blaknot-text-toggle-btn');
+  const pBtn = document.getElementById('blaknot-draw-toggle-btn');
+  const isText = !_blaknotViewOnly && _blaknotMode === 'text';
+  const isDraw = !_blaknotViewOnly && _blaknotMode === 'draw';
+  document.querySelectorAll('.blaknot-page-text').forEach(ta => {
+    ta.readOnly = _blaknotViewOnly;
+    if (_blaknotViewOnly) {
+      // Ko'rish rejimida: agar matn qutidan uzunroq bo'lsa (440px balandlikdan
+      // oshib ketsa), foydalanuvchi bir barmoq bilan pastga-tepaga surib
+      // matnning QOLGAN qismini ko'ra olishi uchun textareaga tegishlarni
+      // "auto" qilib qo'yamiz (lekin readOnly bo'lgani uchun tahrirlanmaydi).
+      // Agar matn qutiga to'liq sig'sa, tegishlarni "none" qoldiramiz —
+      // shunda ostidagi canvas ikki barmoqli pinch-zoom'ni davom ettira oladi.
+      const needsScroll = ta.scrollHeight > ta.clientHeight + 2;
+      ta.style.pointerEvents = needsScroll ? 'auto' : 'none';
+      ta.style.touchAction = 'pan-y';
+      ta.style.overflowY = needsScroll ? 'auto' : 'hidden';
+    } else {
+      ta.style.pointerEvents = isText ? 'auto' : 'none';
+      ta.style.touchAction = '';
+      ta.style.overflowY = '';
+    }
+  });
+  // Chizish rejimida bo'lmasa, canvas barmoq tegishini butunlay o'tkazib
+  // yuboradi (pointer-events:none) — shu orqali stack konteyneri o'zining
+  // tabiiy vertikal skrollini ishlata oladi va "chizish" tasodifan sodir bo'lmaydi.
+  // Ko'rish rejimida (_blaknotViewOnly) esa canvas pointer-events HAR DOIM
+  // 'auto' qilib qo'yiladi — buning yagona sababi ikki barmoqli pinch-zoom
+  // (yaqinlashtirish/uzoqlashtirish) ishlab turishi kerak, biroq bitta
+  // barmoq bilan chizish blaknotPointerDown() ichida to'sib qo'yiladi.
+  document.querySelectorAll('.blaknot-page-canvas').forEach(cv => {
+    cv.style.pointerEvents = (isDraw || _blaknotViewOnly) ? 'auto' : 'none';
+    cv.style.touchAction = isDraw ? 'none' : 'pan-y';
+  });
+  document.querySelectorAll('.blaknot-page-canvas-wrap').forEach(w => {
+    w.style.touchAction = isDraw ? 'none' : 'pan-y';
+  });
+  if (isText) {
+    const active = _blaknotPageRuntime[_blaknotPageIndex];
+    if (active && active.textarea) setTimeout(() => active.textarea.focus(), 10);
+  }
+  if (tBtn) tBtn.classList.toggle('active', isText);
+  if (pBtn) pBtn.classList.toggle('active', isDraw);
+}
+
+// Ko'rish rejimini (viewOnly) UI ga qo'llaydi: sarlavha, kategoriya va
+// tahrirlash asboblarini bloklaydi/ochadi, "✏️ Tahrirlash" tugmasini
+// ko'rsatadi/yashiradi.
+function blaknotApplyViewMode() {
+  const overlay = document.getElementById('blaknot-editor-overlay');
+  if (overlay) overlay.classList.toggle('blaknot-view-mode', _blaknotViewOnly);
+  const editBtn = document.getElementById('blaknot-edit-btn');
+  if (editBtn) editBtn.style.display = _blaknotViewOnly ? 'flex' : 'none';
+  const titleInput = document.getElementById('blaknot-input-title');
+  if (titleInput) titleInput.readOnly = _blaknotViewOnly;
+  document.querySelectorAll('#blaknot-cat-chips .blaknot-chip').forEach(c => {
+    c.disabled = _blaknotViewOnly;
+    c.style.pointerEvents = _blaknotViewOnly ? 'none' : '';
+    c.style.opacity = _blaknotViewOnly ? '0.55' : '';
+  });
+}
+
+// "✏️" tugmasi bosilganda — ko'rish rejimidan tahrirlash rejimiga o'tadi
+function blaknotEnableEdit() {
+  _blaknotViewOnly = false;
+  blaknotApplyViewMode();
+  applyBlaknotMode();
+}
+
+// ---- Shrift o'lchami (faol listga ta'sir qiladi) ----
+function blaknotApplyFontSize() {
+  const rt = _blaknotPageRuntime[_blaknotPageIndex];
+  if (rt && rt.textarea) rt.textarea.style.fontSize = _blaknotFontSize + 'px';
+  if (_blaknotPages[_blaknotPageIndex]) _blaknotPages[_blaknotPageIndex].fontSize = _blaknotFontSize;
+  const incBtn = document.getElementById('blaknot-fontsize-inc-btn');
+  if (incBtn) incBtn.title = "Shriftni kattalashtirish (" + _blaknotFontSize + "px)";
+}
+
+function blaknotFontSizeInc() {
+  _blaknotFontSize = Math.min(28, (_blaknotFontSize || 14) + 2);
+  blaknotApplyFontSize();
+}
+
+function blaknotFontSizeDec() {
+  _blaknotFontSize = Math.max(10, (_blaknotFontSize || 14) - 2);
+  blaknotApplyFontSize();
+}
+
+// ---- Ko'p list (sahifa) navigatsiyasi — Samsung Notes uslubidagi uzluksiz skroll ----
+
+// Faol listni almashtiradi (asboblar — rang, o'chirg'ich, shrift — shu listga ta'sir qiladi).
+// Diqqat: bu endi listni "yashirmaydi/ko'rsatmaydi" — barcha listlar doim ko'rinib turadi,
+// faqat qaysi biriga chizish/yozish asboblari qo'llanishini belgilaydi.
+function blaknotSetActivePage(idx) {
+  if (idx < 0 || idx >= _blaknotPages.length) return;
+  _blaknotPageIndex = idx;
+  _blaknotFontSize = (_blaknotPages[idx] && _blaknotPages[idx].fontSize) || 14;
+  const label = document.getElementById('blaknot-fontsize-label');
+  if (label) label.textContent = _blaknotFontSize + 'px';
+  _blaknotEraser = false;
+  const eraserBtn = document.getElementById('blaknot-eraser-btn');
+  if (eraserBtn) eraserBtn.classList.remove('active');
+  blaknotRenderSwatches();
+  blaknotUpdatePageIndicator();
+  document.querySelectorAll('.blaknot-page-block').forEach((el, i) => {
+    el.style.outline = (i === idx) ? '2px solid var(--green)' : 'none';
+    el.style.outlineOffset = '-2px';
+  });
+}
+
+function blaknotUpdatePageIndicator() {
+  const el = document.getElementById('blaknot-page-indicator');
+  if (el) el.textContent = (_blaknotPageIndex + 1) + ' / ' + _blaknotPages.length;
+  const prevBtn = document.getElementById('blaknot-page-prev-btn');
+  const nextBtn = document.getElementById('blaknot-page-next-btn');
+  if (prevBtn) prevBtn.style.opacity = _blaknotPageIndex === 0 ? '0.4' : '1';
+  if (nextBtn) nextBtn.style.opacity = _blaknotPageIndex === _blaknotPages.length - 1 ? '0.4' : '1';
+}
+
+// Joriy holatni (matn + chizma) barcha listlardan _blaknotPages massiviga yozib oladi
+function blaknotCaptureAllPages() {
+  _blaknotPageRuntime.forEach((rt, idx) => {
+    const page = _blaknotPages[idx];
+    if (!page || !rt) return;
+    if (rt.textarea) page.text = rt.textarea.value;
+    if (rt.canvasTouched) {
+      const hasContent = rt.strokes.length > 0 || !!rt.baseImage;
+      page.drawing = (hasContent && rt.canvas) ? rt.canvas.toDataURL('image/png') : null;
+    }
+  });
+}
+
+// Stack ichidagi biror list blokiga silliq skroll qiladi
+function blaknotScrollToPage(idx) {
+  const block = document.querySelector('.blaknot-page-block[data-page-idx="' + idx + '"]');
+  if (block) block.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  blaknotSetActivePage(idx);
+}
+
+function blaknotPrevPage() {
+  if (_blaknotPageIndex <= 0) return;
+  blaknotScrollToPage(_blaknotPageIndex - 1);
+}
+
+function blaknotNextPage() {
+  if (_blaknotPageIndex >= _blaknotPages.length - 1) return;
+  blaknotScrollToPage(_blaknotPageIndex + 1);
+}
+
+function blaknotAddPage() {
+  blaknotCaptureAllPages();
+  _blaknotPages.push({ text: '', drawing: null, fontSize: _blaknotFontSize });
+  blaknotRenderPagesStack();
+  applyBlaknotMode();
+  setTimeout(() => blaknotScrollToPage(_blaknotPages.length - 1), 40);
+}
+
+// Barcha listlarni bitta uzluksiz skrollanadigan varaq ichida qayta chizadi
+function blaknotRenderPagesStack() {
+  if (_blaknotStackObserver) { _blaknotStackObserver.disconnect(); _blaknotStackObserver = null; }
+  const stack = document.getElementById('blaknot-pages-stack');
+  if (!stack) return;
+  stack.innerHTML = '';
+  _blaknotPageRuntime = _blaknotPages.map(() => ({
+    strokes: [], currentStroke: null, drawingActive: false, ctx: null,
+    canvas: null, wrap: null, textarea: null, canvasW: 0, canvasH: 0,
+    baseImage: null, pendingDrawingSrc: null, canvasTouched: false,
+    zoom: 1, panX: 0, panY: 0, pointers: new Map(), gesture: null, activeDrawPointerId: null,
+    imgScale: null, imgOffX: 0, imgOffY: 0
+  }));
+
+  _blaknotPages.forEach((page, idx) => {
+    const block = document.createElement('div');
+    block.className = 'blaknot-page-block';
+    block.setAttribute('data-page-idx', String(idx));
+    block.style.cssText = 'position:relative;border-bottom:8px solid #cbd5e1;';
+    const label = document.createElement('div');
+    label.textContent = (idx + 1) + '-bet';
+    label.style.cssText = 'font-size:10px;font-weight:700;color:#94a3b8;padding:6px 10px 0;background:var(--blaknot-paper)';
+    block.appendChild(label);
+
+    const wrap = document.createElement('div');
+    wrap.className = 'blaknot-page-canvas-wrap';
+    wrap.style.cssText = 'position:relative;height:440px;overflow:hidden;background:var(--blaknot-paper);touch-action:' + (_blaknotMode === 'draw' ? 'none' : 'pan-y');
+    const canvas = document.createElement('canvas');
+    canvas.className = 'blaknot-page-canvas';
+    canvas.style.cssText = 'display:block;touch-action:none;position:absolute;top:0;left:0;z-index:1;pointer-events:' + (_blaknotMode === 'draw' ? 'auto' : 'none');
+    const textarea = document.createElement('textarea');
+    textarea.className = 'blaknot-page-text';
+    textarea.placeholder = "Qoida, strategiya yoki eslatmangizni yozing...";
+    textarea.value = page.text || '';
+    textarea.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;resize:none;border:none;outline:none;background:transparent;padding:10px;font-size:' + (page.fontSize || 14) + 'px;line-height:1.5;color:#0f172a;font-family:inherit;z-index:2;pointer-events:' + (_blaknotMode === 'text' ? 'auto' : 'none');
+    wrap.appendChild(canvas);
+    wrap.appendChild(textarea);
+    block.appendChild(wrap);
+    stack.appendChild(block);
+
+    const rt = _blaknotPageRuntime[idx];
+    rt.wrap = wrap; rt.canvas = canvas; rt.textarea = textarea;
+    rt.pendingDrawingSrc = page.drawing || null;
+
+    textarea.addEventListener('focus', () => blaknotSetActivePage(idx));
+    textarea.addEventListener('input', () => { page.text = textarea.value; });
+    canvas.addEventListener('pointerdown', (e) => { blaknotSetActivePage(idx); blaknotPointerDown(e, idx); });
+    canvas.addEventListener('pointermove', (e) => blaknotPointerMove(e, idx));
+    canvas.addEventListener('pointerup', (e) => blaknotPointerUp(e, idx));
+    canvas.addEventListener('pointercancel', (e) => blaknotPointerUp(e, idx));
+  });
+
+  setTimeout(() => {
+    _blaknotPages.forEach((page, idx) => blaknotSetupCanvas(idx));
+    blaknotSetActivePage(_blaknotPageIndex < _blaknotPages.length ? _blaknotPageIndex : 0);
+    // Layout joylashib bo'lgach, uzun matnli listlar uchun ichki skrollni
+    // to'g'ri yoqish uchun qayta hisoblaymiz (scrollHeight endi aniq bo'ladi).
+    applyBlaknotMode();
+  }, 30);
+
+  // Skroll paytida qaysi list eng ko'p ko'rinib turgan bo'lsa, o'shani "faol" qiladi
+  // va pastdagi ko'rsatkichni (masalan "2 / 3") shunga qarab yangilaydi.
+  _blaknotStackObserver = new IntersectionObserver((entries) => {
+    let best = null;
+    entries.forEach(en => {
+      if (en.isIntersecting && (!best || en.intersectionRatio > best.intersectionRatio)) best = en;
+    });
+    if (best) {
+      const idx = parseInt(best.target.getAttribute('data-page-idx'), 10);
+      if (!isNaN(idx) && idx !== _blaknotPageIndex) blaknotSetActivePage(idx);
+    }
+  }, { root: stack, threshold: [0.3, 0.5, 0.7] });
+  document.querySelectorAll('.blaknot-page-block').forEach(el => _blaknotStackObserver.observe(el));
+}
+
+function openBlaknotEditor(id) {
+  // Eslatma: _blaknotNotes ilova ishga tushganda va har bir saqlash/o'chirishdan
+  // so'ng doim yangilanib turadi, shuning uchun bu yerda qayta yuklash shart emas
+  // (IndexedDB asinxron bo'lgani uchun bu yerda qayta yuklash kodni murakkablashtirar edi).
+  _blaknotEditingId = id || null;
+  const note = id ? _blaknotNotes.find(n => n.id === id) : null;
+  const overlay = document.getElementById('blaknot-editor-overlay');
+  const titleInput = document.getElementById('blaknot-input-title');
+  if (titleInput) titleInput.value = note ? (note.title || '') : '';
+  _blaknotEditorCat = note ? (note.category || 'qoida') : 'qoida';
+  document.querySelectorAll('#blaknot-cat-chips .blaknot-chip').forEach(c => {
+    c.classList.toggle('active', c.getAttribute('data-cat') === _blaknotEditorCat);
+  });
+  const delBtn = document.getElementById('blaknot-delete-btn');
+  if (delBtn) delBtn.style.visibility = note ? 'visible' : 'hidden';
+
+  // Eski (bir listli) yozuvlarni ko'p listli formatga o'giradi
+  if (note && Array.isArray(note.pages) && note.pages.length) {
+    _blaknotPages = note.pages.map(p => ({ text: p.text || '', drawing: p.drawing || null, fontSize: p.fontSize || 14 }));
+  } else if (note) {
+    _blaknotPages = [{ text: note.text || '', drawing: note.drawing || null, fontSize: note.fontSize || 14 }];
+  } else {
+    _blaknotPages = [{ text: '', drawing: null, fontSize: 14 }];
+  }
+  _blaknotPageIndex = 0;
+  _blaknotEraser = false;
+  const eraserBtn = document.getElementById('blaknot-eraser-btn');
+  if (eraserBtn) eraserBtn.classList.remove('active');
+
+  if (overlay) overlay.classList.add('open');
+  _blaknotMode = 'draw';
+  // Tayyor (mavjud) yozuv ochilsa — avval faqat KO'RISH rejimida ochiladi
+  // (matn/chizish ishlamaydi, ✏️ tugmasi bosilgandagina tahrirlash yoqiladi).
+  // Yangi yozuv esa to'g'ridan-to'g'ri tahrirlash rejimida ochiladi.
+  _blaknotViewOnly = !!note;
+  blaknotApplyViewMode();
+  // Barcha listlarni bitta uzluksiz skrollanadigan varaqda tuzadi (Samsung Notes uslubi)
+  blaknotRenderPagesStack();
+  applyBlaknotMode();
+  blaknotRenderSwatches();
+  blaknotUpdatePageIndicator();
+  const fab = document.getElementById('blaknot-fab');
+  if (fab) fab.style.display = 'none';
+}
+
+function closeBlaknotEditor() {
+  const overlay = document.getElementById('blaknot-editor-overlay');
+  if (overlay) overlay.classList.remove('open');
+  const catOverlay = document.getElementById('blaknot-catpick-overlay');
+  if (catOverlay) catOverlay.classList.remove('open');
+  _blaknotPendingSave = null;
+  _blaknotEditingId = null;
+  _blaknotViewOnly = false;
+  if (overlay) overlay.classList.remove('blaknot-view-mode');
+  if (_blaknotStackObserver) { _blaknotStackObserver.disconnect(); _blaknotStackObserver = null; }
+  _blaknotPageRuntime = [];
+  const stack = document.getElementById('blaknot-pages-stack');
+  if (stack) stack.innerHTML = '';
+  const fab = document.getElementById('blaknot-fab');
+  if (fab) fab.style.display = (typeof tab !== 'undefined' && tab === 'notebook') ? 'flex' : 'none';
+}
+
+function saveBlaknotNote() {
+  const titleInput = document.getElementById('blaknot-input-title');
+  const title = titleInput ? titleInput.value.trim() : '';
+  blaknotCaptureAllPages();
+  const existing = _blaknotEditingId ? _blaknotNotes.find(n => n.id === _blaknotEditingId) : null;
+
+  const pagesToSave = _blaknotPages.map(p => ({ text: p.text || '', drawing: p.drawing || null, fontSize: p.fontSize || 14 }));
+  const hasAnyContent = title || pagesToSave.some(p => (p.text && p.text.trim()) || p.drawing);
+  if (!hasAnyContent) {
+    showAlertModal("Yozuv bo'sh. Sarlavha, matn yoki chizma qo'shing.");
+    return;
+  }
+
+  if (!existing) {
+    // YANGI yozuv birinchi marta saqlanmoqda — qaysi bo'limga saqlansin,
+    // deb so'raymiz. Tahrirlashda (existing mavjud bo'lsa) bu oyna hech
+    // qachon ko'rsatilmaydi — bo'lim o'zgarishsiz saqlanib qoladi.
+    _blaknotPendingSave = { title, pagesToSave };
+    const catOverlay = document.getElementById('blaknot-catpick-overlay');
+    if (catOverlay) catOverlay.classList.add('open');
+    return;
+  }
+
+  blaknotFinishSave(title, pagesToSave, existing, existing.category || _blaknotEditorCat);
+}
+
+// Bo'lim tanlash oynasida foydalanuvchi bir bo'limni bosganda chaqiriladi.
+function blaknotConfirmSaveCat(cat) {
+  const catOverlay = document.getElementById('blaknot-catpick-overlay');
+  if (catOverlay) catOverlay.classList.remove('open');
+  if (!_blaknotPendingSave) return;
+  _blaknotEditorCat = cat;
+  blaknotFinishSave(_blaknotPendingSave.title, _blaknotPendingSave.pagesToSave, null, cat);
+  _blaknotPendingSave = null;
+}
+
+function blaknotFinishSave(title, pagesToSave, existing, cat) {
+  const now = Date.now();
+  if (existing) {
+    existing.title = title;
+    existing.category = cat;
+    existing.pages = pagesToSave;
+    delete existing.text;
+    delete existing.drawing;
+    existing.updatedAt = now;
+  } else {
+    _blaknotNotes.push({
+      id: 'bn_' + now + '_' + Math.random().toString(36).slice(2, 7),
+      title, category: cat, pages: pagesToSave,
+      createdAt: now, updatedAt: now
+    });
+  }
+  saveBlaknotNotes();
+  renderBlaknotList();
+  closeBlaknotEditor();
+}
+
+function deleteBlaknotNoteConfirm() {
+  if (!_blaknotEditingId) return;
+  showConfirmModal({
+    message: "Ushbu yozuvni o'chirishni istaysizmi?",
+    danger: true,
+    onConfirm: () => {
+      _blaknotNotes = _blaknotNotes.filter(n => n.id !== _blaknotEditingId);
+      saveBlaknotNotes();
+      renderBlaknotList();
+      closeBlaknotEditor();
+    }
+  });
+}
+
+// ---- Chizish (drawing canvas) ----
+function blaknotRenderSwatches() {
+  const wrap = document.getElementById('blaknot-color-swatches');
+  if (!wrap) return;
+  wrap.innerHTML = '';
+  BLAKNOT_COLORS.forEach(c => {
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'blaknot-swatch' + (!_blaknotEraser && c.toLowerCase() === _blaknotColor.toLowerCase() ? ' active' : '');
+    b.style.background = c;
+    b.onclick = () => {
+      _blaknotColor = c;
+      _blaknotEraser = false;
+      const picker = document.getElementById('blaknot-color-picker');
+      if (picker) picker.value = c;
+      const eraserBtn = document.getElementById('blaknot-eraser-btn');
+      if (eraserBtn) eraserBtn.classList.remove('active');
+      blaknotRenderSwatches();
+    };
+    wrap.appendChild(b);
+  });
+}
+
+function toggleBlaknotEraser() {
+  _blaknotEraser = !_blaknotEraser;
+  const eraserBtn = document.getElementById('blaknot-eraser-btn');
+  if (eraserBtn) eraserBtn.classList.toggle('active', _blaknotEraser);
+  blaknotRenderSwatches();
+}
+
+// Chizma "varag'i" ko'rinadigan oynadan kattaroq qilib o'lchanadi — shu sabab
+// uzoqlashtirilganda (zoom out) atrofda qo'shimcha bo'sh joy ko'rinadi va
+// yaqinlashtirilganda (zoom in) mayda tafsilotlarni qulay chizish/yozish mumkin.
+function blaknotSetupCanvas(idx) {
+  const rt = _blaknotPageRuntime[idx];
+  if (!rt || !rt.canvas || !rt.wrap) return;
+  const rect = rt.wrap.getBoundingClientRect();
+  const dpr = window.devicePixelRatio || 1;
+  const baseW = Math.max(Math.round(rect.width), 260);
+  const baseH = Math.max(Math.round(rect.height), 260);
+  const w = Math.round(baseW * 2.0);
+  const h = Math.round(baseH * 2.2);
+  rt.canvas.style.width = w + 'px';
+  rt.canvas.style.height = h + 'px';
+  rt.canvas.width = Math.round(w * dpr);
+  rt.canvas.height = Math.round(h * dpr);
+  const ctx = rt.canvas.getContext('2d');
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  ctx.lineCap = 'round';
+  ctx.lineJoin = 'round';
+  rt.ctx = ctx;
+  rt.canvasW = w;
+  rt.canvasH = h;
+  // Varaq (canvas) ko'rinadigan oynadan ATAYIN kattaroq qilib olinadi (yuqoridagi
+  // izohga qarang), shu sabab AVVAL butun list/rasm to'liq ko'rinadigan qilib
+  // "sig'diruvchi" (fit) zoom bilan ochiladi — foydalanuvchi darhol pastini yoki
+  // chetlarini yo'qotmasdan hamma narsani ko'radi, keyin xohlasa mayda
+  // tafsilotlarni ko'rish uchun ikki barmoq bilan yaqinlashtira oladi.
+  blaknotFitZoom(idx);
+  if (!rt.canvasTouched) {
+    rt.canvasTouched = true;
+    if (rt.pendingDrawingSrc) {
+      const img = new Image();
+      img.onload = () => {
+        rt.baseImage = img;
+        // Avvaldan saqlangan (allaqachon butun varaqqa moslab tekislangan)
+        // tasvir — hech narsa qirqilmasdan to'liq qaytariladi.
+        blaknotApplyImgFit(idx, 'contain');
+        blaknotRedraw(idx);
+      };
+      img.src = rt.pendingDrawingSrc;
+    }
+  }
+  blaknotRedraw(idx);
+}
+
+// Rasmning canvas ICHIDAGI haqiqiy o'lchami/joylashuvini hisoblaydi.
+// mode='cover'  -> butun canvas'ni to'ldiradi (bo'sh joy qolmaydi, ortiqchasi qirqiladi)
+// mode='contain'-> rasm hech qirqilmasdan to'liq ko'rinadi (kerak bo'lsa bo'sh joy qoladi)
+function blaknotComputeImgFit(rt, mode) {
+  if (!rt || !rt.baseImage || !rt.canvasW || !rt.canvasH) return null;
+  const iw = rt.baseImage.naturalWidth || rt.baseImage.width || rt.canvasW;
+  const ih = rt.baseImage.naturalHeight || rt.baseImage.height || rt.canvasH;
+  const scale = mode === 'contain'
+    ? Math.min(rt.canvasW / iw, rt.canvasH / ih)
+    : Math.max(rt.canvasW / iw, rt.canvasH / ih);
+  return { scale, offX: (rt.canvasW - iw * scale) / 2, offY: (rt.canvasH - ih * scale) / 2 };
+}
+
+function blaknotApplyImgFit(idx, mode) {
+  const rt = _blaknotPageRuntime[idx];
+  const fit = blaknotComputeImgFit(rt, mode);
+  if (!fit) return;
+  rt.imgScale = fit.scale;
+  rt.imgOffX = fit.offX;
+  rt.imgOffY = fit.offY;
+}
+
+function blaknotApplyZoom(idx) {
+  const rt = _blaknotPageRuntime[idx];
+  if (!rt || !rt.canvas) return;
+  rt.canvas.style.transformOrigin = '0 0';
+  rt.canvas.style.transform = 'translate(' + rt.panX + 'px,' + rt.panY + 'px) scale(' + rt.zoom + ')';
+}
+
+// Butun list (va undagi rasm) — qirqilmasdan — ko'rinadigan oyna ichiga
+// TO'LIQ sig'adigan qilib zoom va pan hisoblaydi, so'ng markazga joylashtiradi.
+// Bu FAQAT o'sha listning ICHKI ko'rinishini o'zgartiradi (canvas
+// wrap'ining overflow:hidden konteyneri ichida) — butun ekranga yoki
+// ilovaning boshqa qismlariga hech qanday ta'sir qilmaydi.
+function blaknotFitZoom(idx) {
+  const rt = _blaknotPageRuntime[idx];
+  if (!rt || !rt.wrap || !rt.canvasW || !rt.canvasH) return;
+  const rect = rt.wrap.getBoundingClientRect();
+  if (!rect.width || !rect.height) return;
+  const fitZoom = Math.min(rect.width / rt.canvasW, rect.height / rt.canvasH, 1);
+  rt.zoom = Math.max(BLAKNOT_ZOOM_MIN, Math.min(BLAKNOT_ZOOM_MAX, fitZoom));
+  rt.panX = (rect.width - rt.canvasW * rt.zoom) / 2;
+  rt.panY = (rect.height - rt.canvasH * rt.zoom) / 2;
+  blaknotApplyZoom(idx);
+}
+
+// "↺" (Asl holatga qaytarish) tugmasi endi literal 1:1 o'lchamga emas,
+// balki listning TO'LIQ (hech narsa qirqilmagan) ko'rinishiga qaytaradi —
+// shunda rasm qirqilib qolgan bo'lsa ham, bu tugma bosilganda darhol
+// butunligicha ko'rinadi.
+function blaknotResetZoom() {
+  const idx = _blaknotPageIndex;
+  const rt = _blaknotPageRuntime[idx];
+  if (rt && rt.baseImage) {
+    // Rasmni ham foydalanuvchi pinch-zoom bilan sozlagan holatidan qaytarib,
+    // hech narsa qirqilmasdan to'liq ko'rinadigan qilib qo'yadi.
+    blaknotApplyImgFit(idx, 'contain');
+    blaknotRedraw(idx);
+  }
+  blaknotFitZoom(idx);
+}
+
+// Ekran koordinatasini (zoom/pan hisobga olingan holda) chizma varag'ining
+// haqiqiy (logik) koordinatasiga o'giradi.
+function blaknotPointerPos(e, idx) {
+  const rt = _blaknotPageRuntime[idx];
+  const rect = rt.wrap.getBoundingClientRect();
+  return {
+    x: (e.clientX - rect.left - rt.panX) / rt.zoom,
+    y: (e.clientY - rect.top - rt.panY) / rt.zoom
+  };
+}
+
+function blaknotStartGesture(idx) {
+  const rt = _blaknotPageRuntime[idx];
+  const pts = Array.from(rt.pointers.values());
+  if (pts.length < 2) return;
+  const [a, b] = pts;
+  const dist = Math.hypot(b.x - a.x, b.y - a.y) || 1;
+  const cx = (a.x + b.x) / 2, cy = (a.y + b.y) / 2;
+  rt.gesture = {
+    startDist: dist,
+    startZoom: rt.zoom,
+    startPanX: rt.panX,
+    startPanY: rt.panY,
+    startCx: cx,
+    startCy: cy
+  };
+  // Agar sahifada rasm bo'lsa — ikki barmoq endi UMUMIY ko'rinishni emas,
+  // balki AYNAN RASMNING o'zini (haqiqiy, saqlanadigan holatini)
+  // yaqinlashtirish/uzoqlashtirish va suzish uchun ishlatiladi.
+  if (rt.baseImage && rt.canvasW && rt.canvasH) {
+    const rect = rt.wrap.getBoundingClientRect();
+    const logicalX = (cx - rect.left - rt.panX) / rt.zoom;
+    const logicalY = (cy - rect.top - rt.panY) / rt.zoom;
+    const fitContain = blaknotComputeImgFit(rt, 'contain');
+    const fitCover = blaknotComputeImgFit(rt, 'cover');
+    rt.gesture.imgMode = true;
+    rt.gesture.startImgScale = rt.imgScale != null ? rt.imgScale : (fitCover ? fitCover.scale : 1);
+    rt.gesture.startImgOffX = rt.imgOffX;
+    rt.gesture.startImgOffY = rt.imgOffY;
+    rt.gesture.imgPointX = (logicalX - rt.gesture.startImgOffX) / rt.gesture.startImgScale;
+    rt.gesture.imgPointY = (logicalY - rt.gesture.startImgOffY) / rt.gesture.startImgScale;
+    rt.gesture.imgMinScale = fitContain ? fitContain.scale * 0.3 : 0.05;
+    rt.gesture.imgMaxScale = fitContain ? fitContain.scale * 8 : 20;
+  }
+}
+
+// Bir barmoq — chizadi (qalam rejimida). Ikki barmoq — istalgan vaqtda
+// varaqni ikki barmoq bilan yaqinlashtirish/uzoqlashtirish (pinch-zoom) va
+// suza olish (pan) imkonini beradi — chizmachilik dasturlaridagidek.
+function blaknotPointerDown(e, idx) {
+  const rt = _blaknotPageRuntime[idx];
+  if (!rt || !rt.ctx) return;
+  rt.pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+
+  if (rt.pointers.size >= 2) {
+    // Ikki barmoq — pinch-zoom har doim ishlaydi (ko'rish rejimida ham,
+    // tahrirlash rejimida ham), shu sabab bu yerda viewOnly tekshirilmaydi.
+    e.preventDefault();
+    try { e.target.setPointerCapture(e.pointerId); } catch (err) {}
+    if (rt.activeDrawPointerId !== null) {
+      rt.currentStroke = null;
+      rt.drawingActive = false;
+      rt.activeDrawPointerId = null;
+      blaknotRedraw(idx);
+    }
+    blaknotStartGesture(idx);
+    return;
+  }
+
+  // Bitta barmoq: faqat "chizish" rejimi FAOL bo'lganda va ko'rish rejimida
+  // BO'LMAGANDA chizadi. Aks holda hech narsa qilinmaydi — event
+  // to'xtatilmaydi, shu orqali barmoq tegishi varaqni tabiiy skroll qilish
+  // (pan-y) uchun ishlatiladi.
+  if (_blaknotViewOnly || _blaknotMode !== 'draw') return;
+
+  e.preventDefault();
+  try { e.target.setPointerCapture(e.pointerId); } catch (err) {}
+  rt.activeDrawPointerId = e.pointerId;
+  rt.drawingActive = true;
+  const p = blaknotPointerPos(e, idx);
+  rt.currentStroke = {
+    color: _blaknotEraser ? '#ffffff' : _blaknotColor,
+    size: _blaknotEraser ? Math.max(_blaknotSize * 4, 18) : _blaknotSize,
+    points: [p]
+  };
+}
+
+function blaknotPointerMove(e, idx) {
+  const rt = _blaknotPageRuntime[idx];
+  if (!rt) return;
+  if (rt.pointers.has(e.pointerId)) {
+    rt.pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+  }
+
+  if (rt.pointers.size >= 2 && rt.gesture) {
+    e.preventDefault();
+    const pts = Array.from(rt.pointers.values());
+    const [a, b] = pts;
+    const dist = Math.hypot(b.x - a.x, b.y - a.y) || 1;
+    const cx = (a.x + b.x) / 2, cy = (a.y + b.y) / 2;
+
+    if (rt.gesture.imgMode) {
+      // Rasmning haqiqiy o'lchami/joylashuvini o'zgartiradi (ko'rinish
+      // transform'i emas) — shu sabab "Saqlash" bosilganda aynan shu holat
+      // saqlanadi.
+      let newImgScale = rt.gesture.startImgScale * (dist / rt.gesture.startDist);
+      newImgScale = Math.min(rt.gesture.imgMaxScale, Math.max(rt.gesture.imgMinScale, newImgScale));
+      const rect = rt.wrap.getBoundingClientRect();
+      const midLogicalX = (cx - rect.left - rt.panX) / rt.zoom;
+      const midLogicalY = (cy - rect.top - rt.panY) / rt.zoom;
+      rt.imgOffX = midLogicalX - rt.gesture.imgPointX * newImgScale;
+      rt.imgOffY = midLogicalY - rt.gesture.imgPointY * newImgScale;
+      rt.imgScale = newImgScale;
+      blaknotRedraw(idx);
+      return;
+    }
+
+    let newZoom = rt.gesture.startZoom * (dist / rt.gesture.startDist);
+    newZoom = Math.min(BLAKNOT_ZOOM_MAX, Math.max(BLAKNOT_ZOOM_MIN, newZoom));
+
+    const rect = rt.wrap.getBoundingClientRect();
+    const localStartCx = rt.gesture.startCx - rect.left;
+    const localStartCy = rt.gesture.startCy - rect.top;
+    const logicalX = (localStartCx - rt.gesture.startPanX) / rt.gesture.startZoom;
+    const logicalY = (localStartCy - rt.gesture.startPanY) / rt.gesture.startZoom;
+    const localCx = cx - rect.left;
+    const localCy = cy - rect.top;
+
+    rt.panX = localCx - logicalX * newZoom;
+    rt.panY = localCy - logicalY * newZoom;
+    rt.zoom = newZoom;
+    blaknotApplyZoom(idx);
+    return;
+  }
+
+  if (!rt.drawingActive || !rt.currentStroke || e.pointerId !== rt.activeDrawPointerId) return;
+  e.preventDefault();
+  const p = blaknotPointerPos(e, idx);
+  rt.currentStroke.points.push(p);
+  blaknotRedraw(idx);
+}
+
+function blaknotPointerUp(e, idx) {
+  const rt = _blaknotPageRuntime[idx];
+  if (!rt) return;
+  rt.pointers.delete(e.pointerId);
+  if (rt.pointers.size < 2) rt.gesture = null;
+
+  if (e.pointerId === rt.activeDrawPointerId) {
+    rt.drawingActive = false;
+    rt.activeDrawPointerId = null;
+    if (rt.currentStroke && rt.currentStroke.points.length >= 1) {
+      rt.strokes.push(rt.currentStroke);
+    }
+    rt.currentStroke = null;
+    blaknotRedraw(idx);
+  }
+}
+
+function blaknotRedraw(idx) {
+  const rt = _blaknotPageRuntime[idx];
+  const ctx = rt && rt.ctx;
+  if (!ctx) return;
+  ctx.clearRect(0, 0, rt.canvasW, rt.canvasH);
+  ctx.fillStyle = '#ffffff';
+  ctx.fillRect(0, 0, rt.canvasW, rt.canvasH);
+  // Varaqning qirrasini (chegarasini) ko'rsatib turadigan yupqa chiziq —
+  // foydalanuvchi listni kattalashtirib/kichraytirib ko'rganda, chizma
+  // qayerda tugashini ko'rib turishi uchun.
+  ctx.save();
+  ctx.strokeStyle = 'rgba(148,163,184,0.6)';
+  ctx.lineWidth = Math.max(1, 1 / rt.zoom);
+  ctx.setLineDash([Math.max(4, 4 / rt.zoom), Math.max(4, 4 / rt.zoom)]);
+  ctx.strokeRect(0.5, 0.5, rt.canvasW - 1, rt.canvasH - 1);
+  ctx.restore();
+  if (rt.baseImage) {
+    try {
+      // Rasm foydalanuvchi ikki barmoq bilan sozlagan (yaqinlashtirilgan/
+      // uzoqlashtirilgan va suzilgan) haqiqiy o'lcham/joylashuvida chiziladi —
+      // shu bilan "Saqlash" bosilganda aynan shu holat saqlanadi (nisbati
+      // buzilmaydi, faqat cho'zilmasdan kattalashadi/kichrayadi).
+      if (rt.imgScale == null) blaknotApplyImgFit(idx, 'cover');
+      const iw = rt.baseImage.naturalWidth || rt.baseImage.width || rt.canvasW;
+      const ih = rt.baseImage.naturalHeight || rt.baseImage.height || rt.canvasH;
+      const dw = iw * rt.imgScale, dh = ih * rt.imgScale;
+      ctx.drawImage(rt.baseImage, rt.imgOffX, rt.imgOffY, dw, dh);
+    } catch (e) {}
+  }
+  const all = rt.currentStroke ? rt.strokes.concat([rt.currentStroke]) : rt.strokes;
+  all.forEach(s => {
+    if (!s.points.length) return;
+    if (s.points.length === 1) {
+      ctx.beginPath();
+      ctx.fillStyle = s.color;
+      ctx.arc(s.points[0].x, s.points[0].y, s.size / 2, 0, Math.PI * 2);
+      ctx.fill();
+      return;
+    }
+    ctx.beginPath();
+    ctx.strokeStyle = s.color;
+    ctx.lineWidth = s.size;
+    ctx.moveTo(s.points[0].x, s.points[0].y);
+    for (let i = 1; i < s.points.length; i++) ctx.lineTo(s.points[i].x, s.points[i].y);
+    ctx.stroke();
+  });
+}
+
+function blaknotUndo() {
+  const idx = _blaknotPageIndex;
+  const rt = _blaknotPageRuntime[idx];
+  if (!rt) return;
+  if (rt.strokes.length > 0) {
+    rt.strokes.pop();
+  } else if (rt.baseImage) {
+    rt.baseImage = null;
+  }
+  blaknotRedraw(idx);
+}
+
+function blaknotHandleImageUpload(e) {
+  const idx = _blaknotPageIndex;
+  const rt = _blaknotPageRuntime[idx];
+  const file = e.target.files && e.target.files[0];
+  if (!file || !rt) return;
+  const reader = new FileReader();
+  reader.onload = function (ev) {
+    const img = new Image();
+    img.onload = () => {
+      rt.baseImage = img;
+      rt.canvasTouched = true;
+      // Yangi yuklangan rasm — birinchi holatda BUTUN varaqni to'ldiradigan
+      // ("cover") qilib joylashtiriladi, so'ng kerak bo'lsa ikki barmoq
+      // bilan yaqinlashtirib/uzoqlashtirib va suzib sozlash mumkin.
+      blaknotApplyImgFit(idx, 'cover');
+      blaknotRedraw(idx);
+    };
+    img.src = ev.target.result;
+  };
+  reader.readAsDataURL(file);
+  e.target.value = '';
+}
+
+function blaknotClearCanvas() {
+  const idx = _blaknotPageIndex;
+  const rt = _blaknotPageRuntime[idx];
+  if (!rt) return;
+  if (rt.strokes.length === 0 && !rt.baseImage) return;
+  showConfirmModal({
+    message: "Chizmani tozalashni istaysizmi?",
+    danger: true,
+    onConfirm: () => {
+      rt.strokes = [];
+      rt.baseImage = null;
+      blaknotRedraw(idx);
+    }
+  });
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+  const picker = document.getElementById('blaknot-color-picker');
+  if (picker) {
+    picker.addEventListener('input', function (e) {
+      _blaknotColor = e.target.value;
+      _blaknotEraser = false;
+      const eraserBtn = document.getElementById('blaknot-eraser-btn');
+      if (eraserBtn) eraserBtn.classList.remove('active');
+      blaknotRenderSwatches();
+    });
+  }
+  const sizeInput = document.getElementById('blaknot-brush-size');
+  if (sizeInput) {
+    sizeInput.addEventListener('input', function (e) {
+      _blaknotSize = parseInt(e.target.value, 10) || 3;
+    });
+  }
+  // Diqqat: chizish canvaslari endi har bir list uchun blaknotRenderPagesStack()
+  // ichida dinamik yaratiladi va shu yerda pointer listenerlari ulanadi.
+  blaknotRenderSwatches();
+  loadBlaknotNotes().then(() => { renderBlaknotList(); });
+  const blaknotFab = document.getElementById('blaknot-fab');
+  const activePage = document.querySelector('.page.active');
+  if (blaknotFab) blaknotFab.style.display = (activePage && activePage.id === 'page-blaknot') ? 'flex' : 'none';
+});
+
 </script></body></html>
