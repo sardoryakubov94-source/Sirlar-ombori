@@ -122,18 +122,36 @@ h2.sh{font-size:15px;color:var(--mu);margin:18px 0 0;font-weight:600}
   #blaknot-pages-stack{background:#e7ebf0}
   @media(prefers-color-scheme:dark){:root{--blaknot-paper:#eafcf4}}
 
-/* Blaknot editor: mobil ekranda ham to'liq kenglik va balandlik */
-#blaknot-editor-overlay{position:fixed!important;inset:0!important;width:100vw!important;height:100dvh!important;min-height:100vh; padding:0!important; margin:0!important;align-items:stretch!important;justify-content:stretch!important;overflow:hidden!important}
-#blaknot-editor-overlay>.blaknot-modal{display:flex!important;position:relative!important;width:100vw!important;min-width:100vw!important;max-width:none!important;height:100dvh!important;min-height:100vh!important;max-height:none!important;margin:0!important;border-radius:0!important;overflow:hidden!important}
-#blaknot-editor-overlay .sabab-fs-head{width:100%;min-width:0;flex-shrink:0}
-#blaknot-editor-overlay .sabab-fs-scroll{width:100%;min-width:0;overflow-x:hidden;overscroll-behavior:contain}
-#blaknot-editor-overlay .sabab-fs-foot{width:100%;flex-shrink:0;padding-bottom:calc(10px + env(safe-area-inset-bottom,0px))!important}
-#blaknot-editor-overlay #blaknot-pages-stack{width:100%;max-height:min(55dvh,520px)!important;overflow-y:auto;overflow-x:hidden}
-#blaknot-editor-overlay .modal-btns{width:100%}
-#blaknot-editor-overlay .btn-cancel,#blaknot-editor-overlay .btn-save{min-height:48px;font-size:15px!important}
-#nv button em{display:flex!important;align-items:center;justify-content:center;line-height:1!important;height:25px;margin:0 auto 3px!important;font-style:normal}
+/* Blaknot editor: mustaqil full-screen qatlam — #app ichidagi layout ta'sir qilmaydi */
+#blaknot-editor-overlay{
+ position:fixed!important;inset:0!important;
+ width:100%!important;height:100vh!important;height:100dvh!important;
+ min-width:0!important;max-width:none!important;min-height:0!important;
+ margin:0!important;padding:0!important;border:0!important;
+ display:none;align-items:stretch!important;justify-content:stretch!important;
+ overflow:hidden!important;z-index:10000!important;box-sizing:border-box!important;
+}
+#blaknot-editor-overlay.open{display:flex!important}
+#blaknot-editor-overlay>.blaknot-modal{
+ display:flex!important;flex:1 1 100%!important;position:relative!important;
+ width:100%!important;min-width:0!important;max-width:none!important;
+ height:100%!important;min-height:0!important;max-height:none!important;
+ margin:0!important;padding:0!important;border:0!important;border-radius:0!important;
+ overflow:hidden!important;box-sizing:border-box!important;
+}
+#blaknot-editor-overlay .sabab-fs-head,
+#blaknot-editor-overlay .sabab-fs-scroll,
+#blaknot-editor-overlay .sabab-fs-foot{width:100%!important;min-width:0!important;box-sizing:border-box!important}
+#blaknot-editor-overlay .sabab-fs-head{flex:0 0 auto}
+#blaknot-editor-overlay .sabab-fs-scroll{flex:1 1 auto;min-height:0;overflow-x:hidden!important;overflow-y:auto!important;overscroll-behavior:contain}
+#blaknot-editor-overlay .sabab-fs-foot{flex:0 0 auto;padding-bottom:calc(10px + env(safe-area-inset-bottom,0px))!important}
+#blaknot-editor-overlay #blaknot-pages-stack{width:100%!important;max-height:min(55dvh,520px)!important;overflow-y:auto!important;overflow-x:hidden!important}
+#blaknot-editor-overlay .modal-btns{display:flex!important;width:100%!important;gap:8px}
+#blaknot-editor-overlay .btn-cancel,#blaknot-editor-overlay .btn-save{flex:1 1 0;min-width:0;min-height:48px;font-size:15px!important}
+#nv button{min-width:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;padding:3px 0}
+#nv button em{display:flex!important;align-items:center;justify-content:center;line-height:1!important;width:25px;height:25px;margin:0!important;font-style:normal}
 #nv button em svg{display:block;width:23px;height:23px;margin:0 auto}
-#nv button span{display:block;line-height:1.2;font-size:11px}
+#nv button span{display:block;line-height:1.2;font-size:11px;white-space:nowrap}
 @media(max-width:380px){
  #blaknot-editor-overlay .sabab-fs-head{gap:6px;padding:9px 10px}
  #blaknot-editor-overlay .sabab-fs-close{width:36px;height:36px;flex-shrink:0}
@@ -840,6 +858,11 @@ function openBlaknotEditor(id) {
   _blaknotEditingId = id || null;
   const note = id ? _blaknotNotes.find(n => n.id === id) : null;
   const overlay = document.getElementById('blaknot-editor-overlay');
+  // Editor va bo'lim tanlash oynalarini body ichiga chiqaramiz:
+  // #app yoki boshqa konteynerlarning eni/overflow'i modalni siqib qo'ymaydi.
+  if (overlay && overlay.parentElement !== document.body) document.body.appendChild(overlay);
+  const catOverlayPortal = document.getElementById('blaknot-catpick-overlay');
+  if (catOverlayPortal && catOverlayPortal.parentElement !== document.body) document.body.appendChild(catOverlayPortal);
   const titleInput = document.getElementById('blaknot-input-title');
   if (titleInput) titleInput.value = note ? (note.title || '') : '';
   _blaknotEditorCat = note ? (note.category || 'qoida') : 'qoida';
