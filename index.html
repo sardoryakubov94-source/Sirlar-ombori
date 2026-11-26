@@ -177,13 +177,6 @@ h2.sh{font-size:15px;color:var(--mu);margin:18px 0 0;font-weight:600}
  <div id="vm" class="hide"></div>
 <!-- BLAKNOT -->
 <div id="vb" class="hide">
-  <div id="blaknot-filter-chips" style="display:flex;gap:6px;overflow-x:auto;margin-bottom:14px;padding-bottom:2px">
-    <button class="blaknot-chip active" data-cat="all" onclick="setBlaknotFilter('all',this)" data-i18n="blaknot_cat_all">Barchasi</button>
-    <button class="blaknot-chip" data-cat="qoida" onclick="setBlaknotFilter('qoida',this)" data-i18n="blaknot_cat_qoida">Qoidalar</button>
-    <button class="blaknot-chip" data-cat="strategiya" onclick="setBlaknotFilter('strategiya',this)" data-i18n="blaknot_cat_strategiya">Strategiya</button>
-    <button class="blaknot-chip" data-cat="eslatma" onclick="setBlaknotFilter('eslatma',this)" data-i18n="blaknot_cat_eslatma">Eslatma</button>
-    <button class="blaknot-chip" data-cat="boshqa" onclick="setBlaknotFilter('boshqa',this)" data-i18n="blaknot_cat_boshqa">Boshqa</button>
-  </div>
   <div id="blaknot-empty" style="display:none;text-align:center;padding:50px 10px;color:var(--muted)">
     <div style="font-size:38px;margin-bottom:10px">📓</div>
     <div style="font-size:13px" data-i18n="blaknot_empty">Hali yozuv yo'q. "+ Yangi" tugmasini bosing.</div>
@@ -220,12 +213,6 @@ h2.sh{font-size:15px;color:var(--mu);margin:18px 0 0;font-weight:600}
     <div class="sabab-fs-scroll" style="padding-top:12px">
       <div id="blaknot-viewmode-hint">👁 Ko'rish rejimi — tahrirlash uchun ✏️ tugmasini bosing</div>
       <input type="text" id="blaknot-input-title" class="form-input" placeholder="Sarlavha..." data-i18n-placeholder="blaknot_title_placeholder" style="font-size:16px;font-weight:700;margin-bottom:10px">
-      <div id="blaknot-cat-chips" style="display:none;gap:6px;overflow-x:auto;margin-bottom:12px;padding-bottom:2px">
-        <button class="blaknot-chip active" data-cat="qoida" onclick="setBlaknotEditorCat('qoida',this)" data-i18n="blaknot_cat_qoida">Qoidalar</button>
-        <button class="blaknot-chip" data-cat="strategiya" onclick="setBlaknotEditorCat('strategiya',this)" data-i18n="blaknot_cat_strategiya">Strategiya</button>
-        <button class="blaknot-chip" data-cat="eslatma" onclick="setBlaknotEditorCat('eslatma',this)" data-i18n="blaknot_cat_eslatma">Eslatma</button>
-        <button class="blaknot-chip" data-cat="boshqa" onclick="setBlaknotEditorCat('boshqa',this)" data-i18n="blaknot_cat_boshqa">Boshqa</button>
-      </div>
       <div id="blaknot-combo-panel">
         <div class="blaknot-edit-only" style="display:flex;align-items:center;justify-content:space-between;gap:6px;margin-bottom:8px">
           <button class="blaknot-tool-btn" id="blaknot-text-toggle-btn" onclick="setBlaknotMode('text')" title="Matn yozish" style="font-weight:900;font-size:16px">T</button>
@@ -276,22 +263,6 @@ h2.sh{font-size:15px;color:var(--mu);margin:18px 0 0;font-weight:600}
     </div>
   </div>
 </div>
-
-<!-- BLAKNOT: bo'lim tanlash oynasi — FAQAT yangi yozuv birinchi marta
-     saqlanayotganda ochiladi. Mavjud yozuvni tahrirlab saqlashda bu oyna
-     hech qachon chiqmaydi, chunki bo'lim allaqachon ma'lum. -->
-<div class="blaknot-overlay" id="blaknot-catpick-overlay" style="z-index:500">
-  <div class="blaknot-modal" style="max-width:320px;padding:20px;margin:auto">
-    <div class="modal-title" style="text-align:center">Qaysi bo'limga saqlansin?</div>
-    <div style="display:flex;flex-direction:column;gap:8px;margin-top:6px">
-      <button class="blaknot-chip" style="width:100%;padding:13px;font-size:14px;font-weight:700" onclick="blaknotConfirmSaveCat('qoida')" data-i18n="blaknot_cat_qoida">Qoidalar</button>
-      <button class="blaknot-chip" style="width:100%;padding:13px;font-size:14px;font-weight:700" onclick="blaknotConfirmSaveCat('strategiya')" data-i18n="blaknot_cat_strategiya">Strategiya</button>
-      <button class="blaknot-chip" style="width:100%;padding:13px;font-size:14px;font-weight:700" onclick="blaknotConfirmSaveCat('eslatma')" data-i18n="blaknot_cat_eslatma">Eslatma</button>
-      <button class="blaknot-chip" style="width:100%;padding:13px;font-size:14px;font-weight:700" onclick="blaknotConfirmSaveCat('boshqa')" data-i18n="blaknot_cat_boshqa">Boshqa</button>
-    </div>
-  </div>
-</div>
-
 
  <nav id="nv"><button data-t="home"><em data-ic="home"></em><span>Bosh</span></button><button data-t="people"><em data-ic="users"></em><span>Odamlar</span></button><button data-t="media"><em data-ic="image"></em><span>Media</span></button><button data-t="notebook"><em data-ic="notebook"></em><span>Blaknot</span></button><button data-t="set"><em data-ic="sliders"></em><span>Sozlama</span></button></nav>
  <button id="fab" class="btn hide" data-ic="plus" data-s="28"></button>
@@ -579,7 +550,6 @@ function renderBlaknotList() {
   const empty = document.getElementById('blaknot-empty');
   if (!wrap) return;
   let list = _blaknotNotes.slice().sort((a, b) => (b.updatedAt || 0) - (a.updatedAt || 0));
-  if (_blaknotFilter !== 'all') list = list.filter(n => n.category === _blaknotFilter);
   wrap.innerHTML = '';
   if (empty) empty.style.display = list.length === 0 ? 'block' : 'none';
   list.forEach(n => {
@@ -590,7 +560,7 @@ function renderBlaknotList() {
     const pageCount = Array.isArray(n.pages) ? n.pages.length : 1;
     const dateStr = n.updatedAt ? new Date(n.updatedAt).toLocaleDateString('uz-UZ', { day: '2-digit', month: '2-digit', year: '2-digit' }) : '';
     card.innerHTML =
-      '<div class="blaknot-card-cat">' + blaknotCatLabel(n.category) + (pageCount > 1 ? ' · ' + pageCount + ' bet' : '') + '</div>' +
+      (pageCount > 1 ? '<div class="blaknot-card-cat">' + pageCount + ' bet</div>' : '') +
       (firstPage.drawing ? '<img src="' + firstPage.drawing + '" class="blaknot-card-thumb">' : '') +
       '<div class="blaknot-card-title">' + blaknotEscape(n.title || "Sarlavhasiz") + '</div>' +
       (firstPage.text ? '<div class="blaknot-card-snippet">' + blaknotEscape(firstPage.text) + '</div>' : '') +
@@ -859,11 +829,8 @@ function openBlaknotEditor(id) {
   _blaknotEditingId = id || null;
   const note = id ? _blaknotNotes.find(n => n.id === id) : null;
   const overlay = document.getElementById('blaknot-editor-overlay');
-  // Editor va bo'lim tanlash oynalarini body ichiga chiqaramiz:
-  // #app yoki boshqa konteynerlarning eni/overflow'i modalni siqib qo'ymaydi.
+  // Editorni body ichiga chiqaramiz: ota konteynerning overflow'i siqmaydi.
   if (overlay && overlay.parentElement !== document.body) document.body.appendChild(overlay);
-  const catOverlayPortal = document.getElementById('blaknot-catpick-overlay');
-  if (catOverlayPortal && catOverlayPortal.parentElement !== document.body) document.body.appendChild(catOverlayPortal);
   const titleInput = document.getElementById('blaknot-input-title');
   if (titleInput) titleInput.value = note ? (note.title || '') : '';
   _blaknotEditorCat = note ? (note.category || 'qoida') : 'qoida';
@@ -973,17 +940,9 @@ function saveBlaknotNote() {
     return;
   }
 
-  if (!existing) {
-    // YANGI yozuv birinchi marta saqlanmoqda — qaysi bo'limga saqlansin,
-    // deb so'raymiz. Tahrirlashda (existing mavjud bo'lsa) bu oyna hech
-    // qachon ko'rsatilmaydi — bo'lim o'zgarishsiz saqlanib qoladi.
-    _blaknotPendingSave = { title, pagesToSave };
-    const catOverlay = document.getElementById('blaknot-catpick-overlay');
-    if (catOverlay) catOverlay.classList.add('open');
-    return;
-  }
-
-  blaknotFinishSave(title, pagesToSave, existing, existing.category || _blaknotEditorCat);
+  // Sirlar omborida barcha yozuvlar bitta umumiy ro'yxatda saqlanadi.
+  // Kategoriya/filtr tanlash yo'q: sarlavha va yozuv darhol saqlanadi.
+  blaknotFinishSave(title, pagesToSave, existing, 'note');
 }
 
 // Bo'lim tanlash oynasida foydalanuvchi bir bo'limni bosganda chaqiriladi.
